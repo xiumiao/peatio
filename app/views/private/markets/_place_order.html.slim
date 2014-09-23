@@ -1,4 +1,24 @@
-.panel.panel-default style='min-height: 140px;'
-  .panel-body.place-order
-    .tab-content
-      h1.text-center 买卖
+.panel.panel-default style='min-height: 120px;'
+  .panel-body.place-order style='margin: 2px;'
+    .row
+      .col-md-20
+        .row
+          .col-md-12
+            .input-group
+              input type="text" class="form-control" placeholder="价格" style='text-align: right;'
+              span.input-group-addon CNY
+          .col-md-2
+            i.fa.fa-times
+          .col-md-8
+            .input-group
+              input type="text" class="form-control" placeholder="数量" style='text-align: right;'
+              span.input-group-addon BTC
+        .row
+          .col-md-12
+            .input-group
+              input type="text" class="form-control" placeholder="金额" style='text-align: right;'
+              span.input-group-addon CNY
+          .col-md-8.col-md-offset-2
+            input type='checkbox' 市价单
+      .col-md-4
+        a.pull-right.btn.btn-block.btn-default style='min-height: 70px;' 买
