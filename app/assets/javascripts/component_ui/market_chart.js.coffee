@@ -9,7 +9,7 @@
         valueDecimals: gon.market.bid.fixed
 
       chart:
-        height: 360
+        height: 500
         events:
           load: ->
             series = @series
