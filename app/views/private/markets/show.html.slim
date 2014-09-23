@@ -2,22 +2,19 @@
   .container
     - if current_user
       .row
-        .col-md-14
+        .col-md-18
           = render partial: 'shared/market/chart'
-        .col-md-10
-          .row
-            .col-md-24  = render partial: 'place_order', locals: {market: @market, order_bid: @order_bid, order_ask: @order_ask}
-          .row
-            .col-md-24  = render partial: 'place_order', locals: {market: @market, order_bid: @order_bid, order_ask: @order_ask}
-          .row
-            .col-md-12 = render partial: 'order_book'
-            .col-md-12 = render partial: 'order_book'
-          .row
-            .col-md-24  = render partial: 'trades'
+        .col-md-6
+          = render partial: 'order_book'
       .row
+        .col-md-7
+          = render partial: 'place_order', locals: {market: @market, order_bid: @order_bid, order_ask: @order_ask}
+        .col-md-7
+          = render partial: 'place_order', locals: {market: @market, order_bid: @order_bid, order_ask: @order_ask}
+        .col-md-10
+          = render partial: 'order_book'
     - else
       .row
         .col-md-24 = render partial: 'shared/market/chart'
       .row
         .col-md-12  = render partial: 'trades'
-        .col-md-12  = render partial: 'order_book'
