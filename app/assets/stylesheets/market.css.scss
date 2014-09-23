@@ -33,7 +33,7 @@
   }
 
   .row:last-of-type .panel .panel-body{
-    height: 410px;
+    height: auto;
   }
 
   .panel {
@@ -69,8 +69,6 @@
       }
 
       &.place-order {
-        height: 390px;
-
         .last-price .value {
           cursor: pointer;
         }
