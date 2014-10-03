@@ -32,7 +32,7 @@ class PaymentTransaction < ActiveRecord::Base
   end
 
   def max_confirm?
-    count = deposit.account.deposits.with_aasm_state(:unconfirm, :confirming)
+    count = deposit.account.deposits.with_aasm_state(:unconfirm, :confirming).count
     if count > 1
       deposit.safe_confirm?(confirmations)
     else
