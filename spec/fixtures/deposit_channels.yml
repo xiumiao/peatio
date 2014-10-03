@@ -2,8 +2,18 @@
   key: satoshi
   currency: btc
   sort_order: 1
-  min_confirm: 1
-  max_confirm: 3
+  confirm_settings:
+    -
+      amount: 0..1
+      min_confirm: 0
+      max_confirm: 1
+    -
+      amount: 1..2
+      min_confirm: 1
+      max_confirm: 3
+  default_min_confirm: 1
+  default_max_confirm: 6
+
 - id: 400
   key: bank
   currency: cny

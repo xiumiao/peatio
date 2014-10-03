@@ -13,12 +13,12 @@ module Deposits
 
     def min_confirm?(confirmations)
       update_confirmations(confirmations)
-      confirmations >= channel.min_confirm && confirmations < channel.max_confirm
+      channel.min_confirm?(deposit_amount: amount, confirmation_count: confirmations)
     end
 
     def max_confirm?(confirmations)
       update_confirmations(confirmations)
-      confirmations >= channel.max_confirm
+      channel.max_confirm?(deposit_amount: amount, confirmation_count: confirmations)
     end
 
     def update_confirmations(confirmations)
