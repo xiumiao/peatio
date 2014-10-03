@@ -32,7 +32,12 @@ class PaymentTransaction < ActiveRecord::Base
   end
 
   def max_confirm?
-    deposit.max_confirm?(confirmations)
+    count = deposit.account.deposits.with_aasm_state(:unconfirm, :confirming)
+    if count > 1
+      deposit.safe_confirm?(confirmations)
+    else
+      deposit.max_confirm?(confirmations)
+    end
   end
 
   def refresh_confirmations

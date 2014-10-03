@@ -22,6 +22,7 @@ class Account < ActiveRecord::Base
   has_many :payment_addresses
   has_many :versions, class_name: "::AccountVersion"
   has_many :partial_trees
+  has_many :deposits
 
   validates :member_id, uniqueness: { scope: :currency }
   validates_numericality_of :balance, :locked, greater_than_or_equal_to: ZERO

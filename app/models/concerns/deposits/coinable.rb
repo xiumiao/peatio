@@ -21,6 +21,11 @@ module Deposits
       channel.max_confirm?(deposit_amount: amount, confirmation_count: confirmations)
     end
 
+    def safe_confirm?(confirmations)
+      update_confirmations(confirmations)
+      channel.safe_confirm?(deposit_amount: amount, confirmation_count: confirmations)
+    end
+
     def update_confirmations(confirmations)
       if !self.new_record? && self.memo.to_s != confirmations.to_s
         self.update_attribute(:memo, confirmations.to_s)

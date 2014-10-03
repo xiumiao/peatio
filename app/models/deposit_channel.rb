@@ -15,20 +15,23 @@ class DepositChannel < ActiveYamlBase
     confirmation(deposit_amount).max_confirm?(confirmation_count)
   end
 
+  def safe_confirm?(deposit_amount: Float::INFINITY, confirmation_count: 0)
+    default_confirmation(deposit_amount).max_confirm?(confirmation_count)
+  end
+
   private
   def confirmations
     confirm_settings.collect {|c| Confirmation.new(c) }
   end
 
   def confirmation(amount)
-    confirmation = confirmations.find{|c| c.range.cover? amount }
+    confirmations.find{|c| c.range.cover? amount } || default_confirmation
+  end
 
-    if confirmation.nil?
-      confirmation = Confirmation.new min_confirm: default_min_confirm, max_confirm: default_max_confirm
-      confirmation.range = Range.new 0, Float::INFINITY
-    end
-
-    confirmation
+  def default_confirmation
+    c = Confirmation.new min_confirm: default_min_confirm, max_confirm: default_max_confirm
+    c.range = Range.new 0, Float::INFINITY
+    c
   end
 
   class Confirmation < ActiveHash::Base
