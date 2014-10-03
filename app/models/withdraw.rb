@@ -135,7 +135,7 @@ class Withdraw < ActiveRecord::Base
   end
 
   def quick?
-    sum <= currency_obj.quick_withdraw_max
+    sum <= channel[:quick_withdraw_max].to_f
   end
 
   private

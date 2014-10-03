@@ -185,17 +185,17 @@ describe Withdraw do
   context "#quick?" do
     subject(:withdraw) { build(:satoshi_withdraw) }
 
-    it "returns false if currency doesn't set quick withdraw max" do
+    it "returns false if withdraw channel doesn't set quick withdraw max" do
       withdraw.should_not be_quick
     end
 
     it "returns false if exceeds quick withdraw amount" do
-      withdraw.currency_obj.stubs(:quick_withdraw_max).returns(withdraw.sum-1)
+      withdraw.channel[:quick_withdraw_max] = withdraw.sum - 1
       withdraw.should_not be_quick
     end
 
     it "returns true" do
-      withdraw.currency_obj.stubs(:quick_withdraw_max).returns(withdraw.sum+1)
+      withdraw.channel[:quick_withdraw_max] = withdraw.sum + 1
       withdraw.should be_quick
     end
   end

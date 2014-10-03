@@ -5,6 +5,7 @@
   fee: 0.0005
   inuse: true
   type: WithdrawChannelSatoshi
+  quick_withdraw_max: 0
 - id: 400
   key: bank
   currency: cny
