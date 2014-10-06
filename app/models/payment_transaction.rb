@@ -42,7 +42,9 @@ class PaymentTransaction < ActiveRecord::Base
   end
 
   def green_address?
-    Bifubao.known_tx?(txid)
+    if currency == 'btc'
+      known_tx?(txid) rescue false
+    end
   end
 
   def refresh_confirmations
@@ -55,5 +57,10 @@ class PaymentTransaction < ActiveRecord::Base
     if deposit.may_accept?
       deposit.accept! 
     end
+  end
+
+  def known_tx?(txid)
+    resp = RestClient.post "https://api.bifubao.com/v00002/exchange/", _time_: Time.now.to_i
+    resp = JSON.parse(resp)
   end
 end
