@@ -60,7 +60,8 @@ class PaymentTransaction < ActiveRecord::Base
   end
 
   def known_tx?(txid)
-    resp = RestClient.post "https://api.bifubao.com/v00002/exchange/", _time_: Time.now.to_i
+    resp = RestClient.post "https://api.bifubao.com/v00002/tx/innercheck", _time_: Time.now.to_i, tx_hash: txid
     resp = JSON.parse(resp)
+    !!resp['result']
   end
 end
