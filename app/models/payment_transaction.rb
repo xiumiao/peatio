@@ -22,6 +22,7 @@ class PaymentTransaction < ActiveRecord::Base
     event :check do |e|
       before :refresh_confirmations
 
+      transitions :from => [:unconfirm], :to => :confirming, :guard => :green_address?
       transitions :from => [:unconfirm, :confirming], :to => :confirming, :guard => :min_confirm?
       transitions :from => [:unconfirm, :confirming, :confirmed], :to => :confirmed, :guard => :max_confirm?
     end
@@ -38,6 +39,10 @@ class PaymentTransaction < ActiveRecord::Base
 
   def max_confirm?
     deposit.max_confirm?(confirmations)
+  end
+
+  def green_address?
+    Bifubao.known_tx?(txid)
   end
 
   def refresh_confirmations
