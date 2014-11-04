@@ -24,14 +24,9 @@ module APIv2
       header 'Access-Control-Allow-Origin', '*'
     end
 
-    mount Markets
-    mount Tickers
-    mount Members
-    mount Orders
-    mount OrderBooks
-    mount Trades
-    mount K
-    mount Mobile
+    ENV['ENABLE_API'].split(/\s+/).each do |name|
+      mount "APIv2::#{name}".constantize
+    end
 
     base_path = Rails.env.production? ? "#{ENV['URL_SCHEMA']}://#{ENV['URL_HOST']}" : nil
     add_swagger_documentation base_path: base_path,

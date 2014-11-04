@@ -1,4 +1,7 @@
 defaults: &defaults
+  # Configure API modules you want to enable, seperated by space.
+  # Available modules: Markets, Tickers, Members, Orders, OrderBooks, Trades, K, Mobile
+  ENABLE_API: 'Markets Tickers Members Orders OrderBooks Trades K'
 
   # sites hosts
   # session expire seconds

@@ -1,4 +1,5 @@
 defaults: &defaults
+  ENABLE_API: 'Markets Tickers Members Orders OrderBooks Trades K Mobile'
 
   # sites hosts
   # session expire seconds
