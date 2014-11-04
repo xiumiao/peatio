@@ -5,6 +5,10 @@ module APIv2
       current_user or raise AuthorizationError
     end
 
+    def authenticate_mobile_provider!
+      raise AuthorizationError unless current_token.is_a?(MobileProviderToken) && current_user
+    end
+
     def redis
       @r ||= KlineDB.redis
     end

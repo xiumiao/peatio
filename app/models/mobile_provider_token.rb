@@ -1,0 +1,2 @@
+class MobileProviderToken < APIToken
+end

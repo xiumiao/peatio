@@ -1,0 +1,2 @@
+class MobileUserToken < APIToken
+end

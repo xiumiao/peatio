@@ -1,6 +1,8 @@
 module APIv2
   class Mobile < Grape::API
 
+    before { authenticate_mobile_provider! }
+
     desc 'Request mobile verification code.'
     params do
       requires :uid_type, type: Symbol, desc: "UID type", values: [:email, :phone_number]
