@@ -84,5 +84,14 @@ module APIv2
       }
     end
 
+    def find_member_by_uid(type, value)
+      case type
+      when :email, :phone_number
+        Member.where(type => value).first
+      else
+        raise ArgumentError, "Invalid uid type: #{type}"
+      end
+    end
+
   end
 end

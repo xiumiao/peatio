@@ -56,4 +56,17 @@ module APIv2
       super code: 2004, text: "Order##{id} doesn't exist.", status: 404
     end
   end
+
+  class UIDNotFoundError < Error
+    def initialize(uid_type, uid_value)
+      super code: 2005, text: "User with uid #{uid_type}=#{uid_value} doesn't exist.", status: 404
+    end
+  end
+
+  class TwoFactorDisabledError < Error
+    def initialize(type)
+      super code: 2006, text: "#{type.camelize} two factor authentication is disabled by user.", status: 400
+    end
+  end
+
 end
