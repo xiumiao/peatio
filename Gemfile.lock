@@ -14,7 +14,7 @@ GIT
       rest-client (~> 1.6.7)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     aasm (3.4.0)
     actionmailer (4.0.12)
