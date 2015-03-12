@@ -39,11 +39,11 @@ class Identity < OmniAuth::Identity::Models::ActiveRecord
   end
 
   def email
-    self.login_type.email? ? self.login : nil
+    login_type && login_type.email? ? self.login : nil
   end
 
   def phone_number
-    self.login_type.phone_number? ? self.login : nil
+    login_type && login_type.phone_number? ? self.login : nil
   end
 
   def email=(e)
