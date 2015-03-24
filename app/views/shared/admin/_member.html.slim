@@ -9,6 +9,8 @@
       = item_for member, :phone_number do
         - if member.phone_number
           span = member.phone_number
+        - elsif member.sms_two_factor.source
+          span = member.sms_two_factor.source
         - else
           span = '-'
       = item_for member, :activated
