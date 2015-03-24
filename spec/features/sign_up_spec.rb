@@ -157,6 +157,7 @@ describe 'Sign up', js: true do
       click_on I18n.t("two_factors.auth.send_code")
       sleep(1.second)
       member.reload
+
       # verify the phone_number has been saved to member after sending
       expect(member.phone_number).to eq("86#{number}")
 
@@ -184,7 +185,6 @@ describe 'Sign up', js: true do
       fill_in 'sms_auth_phone_number', with: number
       click_on I18n.t("two_factors.auth.send_code")
       sleep(1.second)
-      expect(page).to have_content(I18n.t("verify.sms_auths.show.notice.already_taken"))
       expect(member.phone_number).to eq(nil)
       expect(member.phone_number_activated?).to eq(false)
     end

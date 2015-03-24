@@ -29,9 +29,9 @@ class TwoFactor::Sms < ::TwoFactor
 
   def send_otp
     refresh! if expired?
-    update_phone_number_to_member if send_code_phase
-    if member.reload.phone_number
-      AMQPQueue.enqueue(:sms_notification, phone: member.phone_number, message: sms_message)
+    save_phone_number if send_code_phase
+    if self.source
+      AMQPQueue.enqueue(:sms_notification, phone: phone_number, message: sms_message)
       true
     else
       false
@@ -40,7 +40,9 @@ class TwoFactor::Sms < ::TwoFactor
 
   def active!
     super
-    member.active_phone_number!
+    if member.phone_number == self.source
+      member.active_phone_number!
+    end
   end
 
   private
@@ -54,12 +56,14 @@ class TwoFactor::Sms < ::TwoFactor
   end
 
   def country_code
+    country = "CN" if country.blank?
     ISO3166::Country[country].try :country_code
   end
 
-  def update_phone_number_to_member
+  def save_phone_number
     phone = Phonelib.parse([country_code, phone_number].join)
-    member.update phone_number: phone.sanitized.to_s
+    member.update phone_number: phone.sanitized.to_s if member.phone_number.blank?
+    self.update source: phone.sanitized.to_s
   end
 
   def gen_code

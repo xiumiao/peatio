@@ -22,7 +22,7 @@ module Verify
     end
 
     describe 'PUT verify/sms_auth in send code phase' do
-      let(:member) { create :member }
+      let(:member) { create :member, phone_number: nil }
       let(:attrs) {
         {
           format: :js,

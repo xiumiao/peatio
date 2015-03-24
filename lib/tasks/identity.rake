@@ -10,18 +10,14 @@ namespace :identity do
     end
   end
 
-  desc "Add the mobile identity"
-  task add_mobile_identity: :environment do
+  desc "Move the phone number from member to two factor."
+  task move_phone_number_to_two_factor: :environment do
     Member.find_each do |m|
-      if m.phone_number && m.sms_two_factor.activated? && !m.phone_number_activated
+      if m.phone_number && m.sms_two_factor.activated?
         ActiveRecord::Base.transaction do
-
-          i = Identity.new(login: m.phone_number, password_digest: m.identity_email.password_digest,
-                           login_type: 'phone_number')
-          i.save(validate: false)
-          a = m.authentications.new(provider: 'identity', uid: i.id)
-          a.save!
-          m.update_attribute(:phone_number_activated, true)
+          pn =  m.phone_number
+          m.update_attributes(phone_number: nil, phone_number_activated: nil)
+          m.sms_two_factor.update_attribute(:source, pn)
         end
       end
     end
