@@ -2,7 +2,6 @@ class SmsChannel < NotificationChannel
   SUPORT_NOTIFY_TYPE = %w[withdraw_done deposit_accepted]
 
   def notify!(payload = {})
-    @name = self.notify_type
     @payload = payload
     if SUPORT_NOTIFY_TYPE.include?(name) && notifyable?
       AMQPQueue.enqueue(:sms_notification, phone: number, message: content)
