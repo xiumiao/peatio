@@ -106,12 +106,7 @@ class Deposit < ActiveRecord::Base
   end
 
   def send_notification
-    content = I18n.t('sms.deposit_done', email: member.email,
-                                             currency: currency_text,
-                                             time: I18n.l(Time.now),
-                                             amount: amount,
-                                             balance: account.balance)
-    member.notify!('deposit_accepted', {deposit_id: self.id, content: content}) if self.accepted?
+    member.notify!('deposit_accepted', {deposit_id: self.id}) if self.accepted?
   end
 
   def set_fee

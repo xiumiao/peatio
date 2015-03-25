@@ -179,12 +179,7 @@ class Withdraw < ActiveRecord::Base
     when 'processing'
       member.notify!('withdraw_processing', { withdraw_id: self.id })
     when 'done'
-      content = I18n.t('sms.withdraw_done', email: member.email,
-                       currency: currency_text,
-                       time: I18n.l(Time.now),
-                       amount: amount,
-                       balance: account.balance)
-      member.notify!('withdraw_done', { withdraw_id: self.id, content: content })
+      member.notify!('withdraw_done', { withdraw_id: self.id })
     else
       member.notify!('withdraw_state', { withdraw_id: self.id })
     end

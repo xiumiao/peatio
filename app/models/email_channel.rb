@@ -23,7 +23,6 @@ class EmailChannel < NotificationChannel
     else
       @mailer = MemberMailer
       @args = [member.id]
-      @args << payload[:request_info] if payload[:request_info] # TODO: refactor
     end
   end
 end
