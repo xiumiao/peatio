@@ -7,10 +7,6 @@ class TwoFactor::Sms < ::TwoFactor
 
   def verify?
     if !expired? && otp_secret == otp
-      if member.phone_number.blank?
-        errors.add :otp, :taken
-        return false
-      end
       touch(:last_verify_at)
       true
     else
