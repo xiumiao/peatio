@@ -13,7 +13,7 @@ class SmsChannel < NotificationChannel
   end
 
   def number
-    member.sms_two_factor.activated? ? member.sms_two_factor.source : nil
+    member.sms_two_factor.activated? ? member.sms_two_factor.uid : nil
   end
 
   def content

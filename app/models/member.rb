@@ -302,6 +302,10 @@ class Member < ActiveRecord::Base
     email ||  Phonelib.parse(self.phone_number).national || nickname
   end
 
+  def phone_number_for_display
+    phone_number || sms_two_factor.try(:uid) || '-'
+  end
+
   def notify!(notification_type, payload = {})
     self.notification_channels.with_notify_type(notification_type).each do |nc|
       nc.notify!(payload)

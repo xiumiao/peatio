@@ -187,7 +187,7 @@ describe 'Sign up', js: true do
       sleep(1.second)
       expect(member.phone_number).to eq(nil)
       expect(member.phone_number_activated?).to eq(false)
-      expect(member.sms_two_factor.source).to eq("86#{number}")
+      expect(member.sms_two_factor.uid).to eq("86#{number}")
 
       fill_in 'sms_auth_otp', with: member.sms_two_factor.otp_secret
       click_on I18n.t("verify.sms_auths.show.submit")

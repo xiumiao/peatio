@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     trait :sms_two_factor_activated do
       after :create do |member|
-        member.sms_two_factor.update source: member.phone_number
+        member.sms_two_factor.update uid: member.phone_number
         member.sms_two_factor.active!
       end
     end

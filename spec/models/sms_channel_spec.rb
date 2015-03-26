@@ -15,17 +15,17 @@ describe SmsChannel do
   end
 
   describe "#number" do
-    context "read from sms_two_factor source" do
+    context "read from sms_two_factor uid" do
       specify do
         channel.notify!({deposit_id: deposit.id})
-        expect(channel.number).to eq(member.sms_two_factor.source)
+        expect(channel.number).to eq(member.sms_two_factor.uid)
       end
     end
   end
 
   context "notify!" do
     it "should send the sms" do
-      AMQPQueue.expects(:enqueue).with(:sms_notification, {phone: member.sms_two_factor.source, message: content})
+      AMQPQueue.expects(:enqueue).with(:sms_notification, {phone: member.sms_two_factor.uid, message: content})
       channel.notify!({deposit_id: deposit.id})
     end
   end

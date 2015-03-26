@@ -26,8 +26,8 @@ class TwoFactor::Sms < ::TwoFactor
   def send_otp
     refresh! if expired?
     save_phone_number if send_code_phase
-    if self.source
-      AMQPQueue.enqueue(:sms_notification, phone: source, message: sms_message)
+    if self.uid
+      AMQPQueue.enqueue(:sms_notification, phone: uid, message: sms_message)
       true
     else
       false
@@ -36,7 +36,7 @@ class TwoFactor::Sms < ::TwoFactor
 
   def active!
     super
-    if member.phone_number == self.source
+    if member.phone_number == self.uid
       member.activate_phone_number!
     end
   end
@@ -59,7 +59,7 @@ class TwoFactor::Sms < ::TwoFactor
   def save_phone_number
     phone = Phonelib.parse([country_code, phone_number].join)
     member.update phone_number: phone.sanitized.to_s if member.phone_number.blank?
-    self.update source: phone.sanitized.to_s
+    self.update uid: phone.sanitized.to_s
   end
 
   def gen_code

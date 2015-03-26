@@ -121,7 +121,7 @@ namespace :migration do
         ActiveRecord::Base.transaction do
           pn =  m.phone_number
           m.update_attributes(phone_number: nil, phone_number_activated: nil)
-          m.sms_two_factor.update_attribute(:source, pn)
+          m.sms_two_factor.update_attribute(:uid, pn)
         end
       end
     end
