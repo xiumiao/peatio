@@ -141,7 +141,7 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def active_phone_number!
+  def activate_phone_number!
     return if phone_number_activated
     return unless phone_number.present?
     ActiveRecord::Base.transaction do
@@ -223,13 +223,8 @@ class Member < ActiveRecord::Base
   end
 
   def identity(login_type = 'email')
-    authentications = self.authentications.where(provider: 'identity')
-    if authentications.any?
-      i = Identity.where(id: authentications.collect(&:uid)).where(login_type: login_type).first
-      i ? i : nil
-    else
-      nil
-    end
+    uids = authentications.where(provider: 'identity').pluck(:uid)
+    Identity.where(id: uids).where(login_type: login_type).first
   end
 
   def auth(name)

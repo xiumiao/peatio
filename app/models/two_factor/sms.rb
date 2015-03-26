@@ -37,7 +37,7 @@ class TwoFactor::Sms < ::TwoFactor
   def active!
     super
     if member.phone_number == self.source
-      member.active_phone_number!
+      member.activate_phone_number!
     end
   end
 
