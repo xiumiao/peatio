@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :identity do
     login { Faker::Internet.email }
+    login_type 'email'
     password { 'Password123' }
     password_confirmation { 'Password123' }
     is_active true

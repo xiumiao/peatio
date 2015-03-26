@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :authentication do
-    provider "MyString"
+    provider "identity"
     uid "MyString"
     token "MyString"
     secret "MyString"
-    member_id 1
+    member { activated_member }
   end
 end

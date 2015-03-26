@@ -223,8 +223,22 @@ class Member < ActiveRecord::Base
   end
 
   def identity(login_type = 'email')
+    identities.where(login_type: login_type).first
+  end
+
+  def identities
     uids = authentications.where(provider: 'identity').pluck(:uid)
-    Identity.where(id: uids).where(login_type: login_type).first
+    Identity.where(id: uids)
+  end
+
+  def update_password!(params)
+    ActiveRecord::Base.transaction do
+      identities.each do |i|
+        i.password = params[:password]
+        i.password_confirmation = params[:password_confirmation]
+        i.save!
+      end
+    end
   end
 
   def auth(name)
