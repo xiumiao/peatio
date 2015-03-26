@@ -21,14 +21,6 @@ describe SmsChannel do
         expect(channel.number).to eq(member.sms_two_factor.source)
       end
     end
-
-    context "read from member phone_number" do
-      before { member.update_attributes(phone_number: "119", phone_number_activated: true) }
-       specify do
-        channel.notify!({deposit_id: deposit.id})
-        expect(channel.number).to eq(member.phone_number)
-      end
-    end
   end
 
   context "notify!" do
