@@ -9,15 +9,11 @@ class SmsChannel < NotificationChannel
   end
 
   def notifyable?
-    member.phone_number_activated || member.sms_two_factor.activated?
+    member.sms_two_factor.activated?
   end
 
   def number
-    if member.phone_number_activated
-      member.phone_number
-    elsif member.sms_two_factor.activated?
-      member.sms_two_factor.source
-    end
+    member.sms_two_factor.activated? ? member.sms_two_factor.source : nil
   end
 
   def content
