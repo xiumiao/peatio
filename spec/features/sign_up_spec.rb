@@ -161,7 +161,7 @@ describe 'Sign up', js: true do
       # verify the phone_number has been saved to member after sending
       expect(member.phone_number).to eq("86#{number}")
 
-      fill_in 'sms_auth_otp', with: TwoFactor::Sms.order("refreshed_at DESC").first.otp_secret
+      fill_in 'sms_auth_otp', with: member.sms_two_factor.otp_secret
       click_on I18n.t("verify.sms_auths.show.submit")
 
       sleep(1.second)
@@ -173,7 +173,7 @@ describe 'Sign up', js: true do
 
     end
 
-    specify "After signup with email, user can't bind a mobile which has already been taken." do
+    specify "After signup with phone number, another user can bind with same number" do
       create(:activated_member, phone_number: "86#{number}")
       create(:identity, login: number)
 
@@ -187,7 +187,16 @@ describe 'Sign up', js: true do
       sleep(1.second)
       expect(member.phone_number).to eq(nil)
       expect(member.phone_number_activated?).to eq(false)
+      expect(member.sms_two_factor.source).to eq("86#{number}")
+
+      fill_in 'sms_auth_otp', with: member.sms_two_factor.otp_secret
+      click_on I18n.t("verify.sms_auths.show.submit")
+
+      sleep(1.second)
+
+      expect(member.sms_two_factor.activated).to eq(true)
     end
+
   end
 
 end
