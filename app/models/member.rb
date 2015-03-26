@@ -126,7 +126,7 @@ class Member < ActiveRecord::Base
     self.email_activated = status
   end
 
-  def active_email!
+  def activate_email!
     return if email_activated
     ActiveRecord::Base.transaction do
       update_attributes email_activated: true

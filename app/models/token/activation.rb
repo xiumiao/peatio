@@ -3,7 +3,7 @@ class Token::Activation < ::Token
 
   def confirm!
     super
-    member.active_email!
+    member.activate_email!
   end
 
   private
