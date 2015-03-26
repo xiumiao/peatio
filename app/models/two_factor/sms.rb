@@ -27,7 +27,7 @@ class TwoFactor::Sms < ::TwoFactor
     refresh! if expired?
     save_phone_number if send_code_phase
     if self.source
-      AMQPQueue.enqueue(:sms_notification, phone: phone_number, message: sms_message)
+      AMQPQueue.enqueue(:sms_notification, phone: source, message: sms_message)
       true
     else
       false
