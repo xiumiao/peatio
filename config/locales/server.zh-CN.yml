@@ -146,6 +146,7 @@ zh-CN:
         two_factor_activated?: "二次验证"
         phone_number: 手机号码
       two_factor/sms:
+        country: 国家
         phone_number: 手机号码
         otp: 验证码
       withdraws/bank:
