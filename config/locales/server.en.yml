@@ -1175,6 +1175,10 @@ en:
           fund_extra: Label
           account_balance: Account Balance
           member_name: Account
+      announcement:
+        content: Content
+        publish_at: Pubish Time
+        public: Public Viewable
   admin:
     deposits:
       banks:
@@ -1223,6 +1227,9 @@ en:
     documents:
       index:
         new: New Document
+    announcements:
+      index:
+        new: New Announcement
     statistic:
       filter: Filter
       summary: Summary
@@ -1574,6 +1581,7 @@ en:
     withdraws: Withdraws
     statistics: Data Statistics
     id_documents: Verify Account
+    announcements: Announcements
   footer:
     about: About
     privacy: Privacy
@@ -1726,6 +1734,7 @@ en:
             documents: Documents
             withdraws: Withdraws
             tickets: Tickets
+            announcements: Announcements
           deposits:
             currency: Deposit
     application:
