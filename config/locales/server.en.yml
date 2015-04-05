@@ -1535,6 +1535,7 @@ en:
       enabled: Notification enabled.
       new_trade: "%{kind} order#%{id} executed at %{price} %{quote_unit} for %{volume} %{base_unit}。"
   back: Back
+  learn_more: Learn More
   invalid_password: Invalid password
   all: All
   date:

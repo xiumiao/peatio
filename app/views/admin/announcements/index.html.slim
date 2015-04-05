@@ -6,7 +6,8 @@
     .posts
       - @announcements.each do |item|
         .post-item
-          i.fa.fa-lock
+          - unless item.public
+            i.fa.fa-lock
           h4.post-heading= item.title
           .post-content= simple_format(item.content)
           ul.post-meta.list-inline
@@ -15,7 +16,8 @@
             li
               = item.created_at
             li
-              'publish at
+              = t('simple_form.labels.announcement.publish_at')
+            li
               = item.publish_at
             li
               = link_to t('actions.edit'), edit_admin_announcement_path(item)

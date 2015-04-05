@@ -21,3 +21,8 @@ header.text-center
           a href="#{market_path(current_market)}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.getstart")
           a href="#{funds_path}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.funds")
           a href="#{settings_path}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.settings")
+    - unless @announcement.blank?
+      #announcements.row
+        .wrapper
+          = @announcement.title
+          = link_to t('learn_more'), announcements_path(anchor: "post-#{@announcement.id}")

@@ -1468,6 +1468,7 @@ zh-CN:
       enabled: 实时更新已开启。
       new_trade: "您的%{kind}委托 #%{id} 以 %{price} %{quote_unit} 价格成交，%{kind} %{volume} %{base_unit}。"
   back: 返回
+  learn_more: 了解更多
   invalid_password: 无效的登录密码
   all: 全部
   date:

@@ -43,5 +43,20 @@
     #getstart {
       margin-bottom: 50px;
     }
+    #announcements {
+      margin-bottom: 30px;
+      .wrapper {
+        background: #E2E2CC;
+        padding: 15px 30px;
+        border-radius: 5px;
+        color: #89897C;
+        font-size: 16px;
+        display: inline-block;
+        a {
+          margin-left: 10px;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
