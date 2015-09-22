@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
 
 gem 'rails', '~> 4.0.12'
 gem 'rails-i18n'
@@ -36,6 +36,7 @@ gem 'paper_trail', '~> 3.0.1'
 gem 'rails-observers'
 gem 'country_select', '~> 2.1.0'
 
+# 简单来讲就是把服务器端的变量在浏览器端可用
 gem 'gon', '~> 5.2.0'
 gem 'pusher'
 gem 'eventmachine', '~> 1.0.4'
@@ -78,13 +79,13 @@ group :development, :test do
   gem 'meta_request'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'pry-rails'
+  # gem 'pry-rails'
   gem 'quiet_assets'
   gem 'mails_viewer'
   gem 'timecop'
   gem 'dotenv-rails'
   gem 'rspec-rails'
-  gem 'byebug'
+  # gem 'byebug'
 end
 
 group :test do
