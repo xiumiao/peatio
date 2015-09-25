@@ -4,31 +4,48 @@ gem 'rails', '~> 4.0.12'
 gem 'rails-i18n'
 
 gem 'mysql2'
+# 守护进程 lib/daemons
 gem 'daemons-rails'
+# 内存数据库，与memcached类似
 gem 'redis-rails'
 
+# 验证码
 gem 'rotp'
 gem 'json'
 gem 'jbuilder'
+# 加密
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+# OAuth 2 provider
 gem 'doorkeeper', '~> 1.4.1'
 gem 'omniauth', '~> 1.2.1'
 gem 'omniauth-identity', '~> 1.1.1'
 gem 'omniauth-weibo-oauth2', '~> 0.4.0'
 
+# Figaro was written to make it easy to securely configure Rails applications.
 gem 'figaro'
+# Hashie is a collection of classes and mixins that make hashes more powerful.
 gem 'hashie'
 
+# Ruby state machines
 gem 'aasm', '~> 3.4.0'
+# message server protocal
 gem 'amqp', '~> 1.3.0'
+# RabbitMQ ruby client
 gem 'bunny', '~> 1.2.1'
+# 权限管理
 gem 'cancancan'
+# 枚举
 gem 'enumerize'
+# 页面数据排序
 gem 'datagrid'
+# 还没看明白干嘛用的， https://github.com/mbleigh/acts-as-taggable-on
 gem 'acts-as-taggable-on'
+# 和WillPaginate类似的Gem
 gem 'kaminari'
+# 对ActiveRecord 做物理删除或者虚拟删除（置一个删除时间表示该消息的状态）
 gem 'paranoid2'
+#
 gem 'active_hash'
 gem 'http_accept_language'
 gem "globalize", "~> 4.0.0"
@@ -42,12 +59,19 @@ gem 'pusher'
 gem 'eventmachine', '~> 1.0.4'
 gem 'em-websocket', '~> 0.5.1'
 
+# 简单的表单生成工具
 gem 'simple_form', '~> 3.1.0'
+# rails slim模板
 gem 'slim-rails'
+# SASS支持
 gem 'sass-rails'
+# coffeesciprt 支持
 gem 'coffee-rails'
+# javascrip引擎之一
 gem 'uglifier'
+# jquery支持
 gem "jquery-rails"
+# angularjs支持
 gem "angularjs-rails"
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'bootstrap-wysihtml5-rails'

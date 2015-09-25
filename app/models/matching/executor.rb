@@ -5,6 +5,8 @@ module Matching
 
     def initialize(payload)
       @payload = payload
+      puts payload
+      puts "="*30
       @market  = Market.find payload[:market_id]
       @price   = BigDecimal.new payload[:strike_price]
       @volume  = BigDecimal.new payload[:volume]
@@ -18,7 +20,7 @@ module Matching
     end
 
     private
-
+    # 符合哪些条件才是有效交易？
     def valid?
       return false if @ask.ord_type == 'limit' && @ask.price > @price
       return false if @bid.ord_type == 'limit' && @bid.price < @price
@@ -47,6 +49,11 @@ module Matching
 
     def create_trade_and_strike_orders
       ActiveRecord::Base.transaction do
+        # 找出询价最高价，卖价最低价，按照生成时间降序
+        # 比特币24小时交易，没有集合竞价阶段
+        # 人民币取现有时间限制，比特币提现无限制
+        # 这里的@price是什么价格？卖出价？
+        # 并不是多线程？
         @ask = OrderAsk.lock(true).find(@payload[:ask_id])
         @bid = OrderBid.lock(true).find(@payload[:bid_id])
 

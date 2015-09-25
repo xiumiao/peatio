@@ -17,6 +17,8 @@ conn = Bunny.new AMQPConfig.connect
 conn.start
 
 ch = conn.create_channel
+# 例如： $0 = 'peatio:amqp:notification'
+# 此时 id = notification
 id = $0.split(':')[2]
 prefetch = AMQPConfig.channel(id)[:prefetch] || 0
 ch.prefetch(prefetch) if prefetch > 0
@@ -34,27 +36,37 @@ Signal.trap("TERM", &terminate)
 workers = []
 ARGV.each do |id|
   worker = AMQPConfig.binding_worker(id)
+  # 绑定
   queue  = ch.queue *AMQPConfig.binding_queue(id)
-
+  # id name eg. notification
   if args = AMQPConfig.binding_exchange(id)
     x = ch.send *args
 
     case args.first
-    when 'direct'
+    when 'direct' # 两种类型： 直接发送消息到指定队列（点对点，或广播）
       queue.bind x, routing_key: AMQPConfig.routing_key(id)
-    when 'topic'
+    when 'topic' # 主题, 只有匹配的队列才会获取
       AMQPConfig.topics(id).each do |topic|
         queue.bind x, routing_key: topic
       end
-    else
+    else # 默认发送给所有的队列的信息
       queue.bind x
     end
   end
 
   clean_start = AMQPConfig.data[:binding][id][:clean_start]
+  # if true 清空队列
   queue.purge if clean_start
 
   manual_ack  = AMQPConfig.data[:binding][id][:manual_ack]
+  # delivery information, message metadata (properties) and message body (often called the payload).
+  # message metadata attributes are:
+  # message content encoding
+  # message priority
+  # message expiration time
+  # message identifier
+  # reply to (specifies which message this is a reply to)
+  # application id (identifier of the application that produced the message)
   queue.subscribe(manual_ack: manual_ack) do |delivery_info, metadata, payload|
     logger.info "Received: #{payload}"
     begin
@@ -63,6 +75,7 @@ ARGV.each do |id|
       logger.fatal e
       logger.fatal e.backtrace.join("\n")
     ensure
+      # 确认移除出队列
       ch.ack(delivery_info.delivery_tag) if manual_ack
     end
   end

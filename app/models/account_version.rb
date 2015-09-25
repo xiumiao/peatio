@@ -5,20 +5,21 @@ class AccountVersion < ActiveRecord::Base
 
   enumerize :fun, in: Account::FUNS
 
+  # 交易类型
   REASON_CODES = {
-    Account::UNKNOWN => 0,
-    Account::FIX => 1,
-    Account::STRIKE_FEE => 100,
-    Account::STRIKE_ADD => 110,
-    Account::STRIKE_SUB => 120,
-    Account::STRIKE_UNLOCK => 130,
-    Account::ORDER_SUBMIT => 600,
-    Account::ORDER_CANCEL => 610,
-    Account::ORDER_FULLFILLED => 620,
-    Account::WITHDRAW_LOCK => 800,
-    Account::WITHDRAW_UNLOCK => 810,
-    Account::DEPOSIT => 1000,
-    Account::WITHDRAW => 2000 }
+    Account::UNKNOWN => 0, # 未知
+    Account::FIX => 1, # 确认
+    Account::STRIKE_FEE => 100, # 交易费
+    Account::STRIKE_ADD => 110, # 增加
+    Account::STRIKE_SUB => 120, # 减少
+    Account::STRIKE_UNLOCK => 130, # 锁定
+    Account::ORDER_SUBMIT => 600, # 提交订单（买入BTC，扣除账户对应的人民币)？
+    Account::ORDER_CANCEL => 610, # 取消
+    Account::ORDER_FULLFILLED => 620, # 充值?
+    Account::WITHDRAW_LOCK => 800, # 交易撤销锁定
+    Account::WITHDRAW_UNLOCK => 810, # 交易撤销解锁
+    Account::DEPOSIT => 1000, # 保证金？
+    Account::WITHDRAW => 2000 } # 撤销
   enumerize :reason, in: REASON_CODES, scope: true
 
   belongs_to :account
