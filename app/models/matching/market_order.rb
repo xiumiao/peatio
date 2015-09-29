@@ -5,6 +5,7 @@ module Matching
     attr :id, :timestamp, :type, :locked, :market
     attr_accessor :volume
 
+    # 初始化order
     def initialize(attrs)
       @id         = attrs[:id]
       @timestamp  = attrs[:timestamp]

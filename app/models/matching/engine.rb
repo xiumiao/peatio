@@ -9,14 +9,21 @@ module Matching
       @orderbook = OrderBookManager.new(market.id)
 
       # Engine is able to run in different mode:
-      # dryrun: do the match, do not publish the trades
+      # dryrun: do the match, do not publish the trades 测试用，并不发布出去
       # run:    do the match, publish the trades (default)
       shift_gears(options[:mode] || :run)
     end
 
     def submit(order)
+      # asks 返回 [ask, bid]
+      # bid 返回 [bid, ask] market
+      # 这个order是根据payload里面的属性生成的,limitorder or marketorder
+      # order.type可能为bid or ask
       book, counter_book = orderbook.get_books order.type
       match order, counter_book
+      # 添加或取消？
+      # 如果取消发送取消通知publish
+      # 目前代码只添加limit order 到一个RBTree红黑树中ask and bid RBTree
       add_or_cancel order, book
     rescue
       Rails.logger.fatal "Failed to submit order #{order.label}: #{$!}"
@@ -45,6 +52,7 @@ module Matching
         bid: bid_orders.market_orders }
     end
 
+    #
     def shift_gears(mode)
       case mode
       when :dryrun
@@ -66,15 +74,21 @@ module Matching
     private
 
     def match(order, counter_book)
+      # order: market_order or limit_order
+      # order数量<=0 return
       return if order.filled?
 
+      # 获取买入高价或者卖出最低价
       counter_order = counter_book.top
       return unless counter_order
 
       if trade = order.trade_with(counter_order, counter_book)
+        # fill_top 交易如果该交易全部结束，直接删除，
+        # 如果是部分交易会发送广播:slave_book action:update
         counter_book.fill_top *trade
         order.fill *trade
 
+        # 发送trade_executor到RabbitMQ处理实际的交易
         publish order, counter_order, trade
 
         match order, counter_book
@@ -87,6 +101,7 @@ module Matching
         book.add(order) : publish_cancel(order, "fill or kill market order")
     end
 
+    # 其中trade： [trade_price, trade_volume, trade_funds]
     def publish(order, counter_order, trade)
       ask, bid = order.type == :ask ? [order, counter_order] : [counter_order, order]
 

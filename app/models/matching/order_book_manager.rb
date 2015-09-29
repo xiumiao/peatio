@@ -1,4 +1,5 @@
 module Matching
+  # 订单预定管理
   class OrderBookManager
 
     attr :ask_orders, :bid_orders
@@ -8,6 +9,7 @@ module Matching
 
       raise ArgumentError, "Missing ord_type: #{attrs.inspect}" unless attrs[:ord_type].present?
 
+      # ord_type: market or limit
       klass = ::Matching.const_get "#{attrs[:ord_type]}_order".camelize
       klass.new attrs
     end

@@ -4,7 +4,7 @@ module Matching
   class OrderBook
 
     attr :side
-
+    # eg. btccny, ask , options
     def initialize(market, side, options={})
       @market = market
       @side   = side.to_sym
@@ -12,6 +12,7 @@ module Matching
       @market_orders = RBTree.new
 
       @broadcast = options.has_key?(:broadcast) ? options[:broadcast] : true
+      # 广播，动作：new， 市场，如：btccny, side: 需求方ask, 供应方： bid
       broadcast(action: 'new', market: @market, side: @side)
 
       singleton = class<<self;self;end
@@ -22,10 +23,12 @@ module Matching
       limit_top.try(:price)
     end
 
+    # 优先选择市场委托价，如没有则选择委托报价
     def top
       @market_orders.empty? ? limit_top : @market_orders.first[1]
     end
 
+    # 交易价，交易数量，交易金额
     def fill_top(trade_price, trade_volume, trade_funds)
       order = top
       raise "No top order in empty book." unless order
@@ -108,12 +111,14 @@ module Matching
       end
     end
 
+    # 卖出最低价
     def ask_limit_top # lowest price wins
       return if @limit_orders.empty?
       price, level = @limit_orders.first
       level.top
     end
 
+    # 买入最高价
     def bid_limit_top # highest price wins
       return if @limit_orders.empty?
       price, level = @limit_orders.last

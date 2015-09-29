@@ -16,12 +16,13 @@ module Matching
       raise InvalidOrderError.new(attrs) unless valid?(attrs)
     end
 
+    #
     def trade_with(counter_order, counter_book)
       if counter_order.is_a?(LimitOrder)
-        if crossed?(counter_order.price)
-          trade_price  = counter_order.price
-          trade_volume = [volume, counter_order.volume].min
-          trade_funds  = trade_price*trade_volume
+        if crossed?(counter_order.price) # ask 卖价大于等于成交价？ 否则不成交
+          trade_price  = counter_order.price # 交易价格
+          trade_volume = [volume, counter_order.volume].min # 交易数量
+          trade_funds  = trade_price*trade_volume # 交易金额
           [trade_price, trade_volume, trade_funds]
         end
       else
@@ -37,9 +38,12 @@ module Matching
     end
 
     def filled?
-      volume <= ZERO
+      # volume <= ZERO 这是调用方法，下面是直接用实例变量
+      @volume <= ZERO
     end
 
+    # ask 卖价大于等于成交价？
+    # bid 买价小于等于成交价？
     def crossed?(price)
       if type == :ask
         price >= @price # if people offer price higher or equal than ask limit

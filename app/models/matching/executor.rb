@@ -5,12 +5,10 @@ module Matching
 
     def initialize(payload)
       @payload = payload
-      puts payload
-      puts "="*30
-      @market  = Market.find payload[:market_id]
-      @price   = BigDecimal.new payload[:strike_price]
-      @volume  = BigDecimal.new payload[:volume]
-      @funds   = BigDecimal.new payload[:funds]
+      @market  = Market.find payload[:market_id] # btccny
+      @price   = BigDecimal.new payload[:strike_price] # 履约价格
+      @volume  = BigDecimal.new payload[:volume] # 数量
+      @funds   = BigDecimal.new payload[:funds] # 交易金额
     end
 
     def execute!

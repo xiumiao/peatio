@@ -21,13 +21,16 @@ class AMQPQueue
 
     def publish(eid, payload, attrs={})
       payload = JSON.dump payload
+      # 以peatio.matching为例，payload: submit, attrs: ording.attributes
       exchange(eid).publish(payload, attrs)
     end
 
     # enqueue = publish to direct exchange
     def enqueue(id, payload, attrs={})
+      # eid 类型：trade, or notification
       eid = AMQPConfig.binding_exchange_id(id) || :default
       payload.merge!({locale: I18n.locale})
+      # if id: matching, then routing_key = peatio.matching
       attrs.merge!({routing_key: AMQPConfig.routing_key(id)})
       publish(eid, payload, attrs)
     end
