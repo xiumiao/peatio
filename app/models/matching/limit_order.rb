@@ -16,12 +16,12 @@ module Matching
       raise InvalidOrderError.new(attrs) unless valid?(attrs)
     end
 
-    #
+    # 交易
     def trade_with(counter_order, counter_book)
       if counter_order.is_a?(LimitOrder)
         if crossed?(counter_order.price) # ask 卖价大于等于成交价？ 否则不成交
           trade_price  = counter_order.price # 交易价格
-          trade_volume = [volume, counter_order.volume].min # 交易数量
+          trade_volume = [volume, counter_order.volume].min # 交易数量以小的为主
           trade_funds  = trade_price*trade_volume # 交易金额
           [trade_price, trade_volume, trade_funds]
         end

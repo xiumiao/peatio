@@ -78,7 +78,8 @@ module Matching
       # order数量<=0 return
       return if order.filled?
 
-      # 获取买入高价或者卖出最低价
+      # 获取买入高价或者卖出最低价,不存在说明该交易不满足条件，返回
+      #
       counter_order = counter_book.top
       return unless counter_order
 
@@ -90,7 +91,7 @@ module Matching
 
         # 发送trade_executor到RabbitMQ处理实际的交易
         publish order, counter_order, trade
-
+        # 部分成交时，继续执行，一直不能执行完成咋办？
         match order, counter_book
       end
     end

@@ -23,7 +23,7 @@ module Matching
       limit_top.try(:price)
     end
 
-    # 优先选择市场委托价，如没有则选择委托报价
+    # 优先选择市场委托价，如没有则选择委托报价（买入的最高价或者是卖出的最低价）
     def top
       @market_orders.empty? ? limit_top : @market_orders.first[1]
     end
