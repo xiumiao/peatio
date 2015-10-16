@@ -73,12 +73,12 @@ module Matching
 
     private
 
-    def match(order, counter_book)
+    def match(order, counter_book) #:doc:
       # order: market_order or limit_order
       # order数量<=0 return
       return if order.filled?
 
-      # 获取买入高价或者卖出最低价,不存在说明该交易不满足条件，返回
+      # 获取买入最高价或者卖出最低价,不存在说明该交易不满足条件，返回
       #
       counter_order = counter_book.top
       return unless counter_order

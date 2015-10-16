@@ -22,10 +22,12 @@ class Trade < ActiveRecord::Base
   alias_method :sn, :id
 
   class << self
+    # 获取最新的价格
     def latest_price(currency)
       with_currency(currency).order(:id).reverse_order
         .limit(1).first.try(:price) || "0.0".to_d
     end
+
 
     def filter(market, timestamp, from, to, limit, order)
       trades = with_currency(market).order(order)
@@ -36,6 +38,7 @@ class Trade < ActiveRecord::Base
       trades
     end
 
+    # 列出某个会员的所有交易
     def for_member(currency, member, options={})
       trades = filter(currency, options[:time_to], options[:from], options[:to], options[:limit], options[:order]).where("ask_member_id = ? or bid_member_id = ?", member.id, member.id)
       trades.each do |trade|

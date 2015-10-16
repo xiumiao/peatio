@@ -2,6 +2,7 @@ module Concerns
   module OrderCreation
     extend ActiveSupport::Concern
 
+
     def order_params(order)
       params[order][:bid] = params[:bid]
       params[order][:ask] = params[:ask]
@@ -15,6 +16,7 @@ module Concerns
         :state, :origin_volume, :volume, :member_id, :ord_type)
     end
 
+    # 订单提交
     def order_submit
       begin
         Ordering.new(@order).submit
@@ -27,6 +29,7 @@ module Concerns
       end
     end
 
+    # 显示创建订单成功消息（json格式）
     def success_result
       Jbuilder.encode do |json|
         json.result true
@@ -34,6 +37,7 @@ module Concerns
       end
     end
 
+    # 显示创建订单错误消息（json格式）
     def error_result(args)
       Jbuilder.encode do |json|
         json.result false
