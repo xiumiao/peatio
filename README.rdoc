@@ -129,8 +129,30 @@ strike price: 履约价格<br>
 用到的技术栈
 语言和框架： ruby, RoR
 缓存：redis
-消息服务器：RabbitMQ
+消息服务器：RabbitMQ，为什么选择RabbitMQ,其他消息服务器介绍及对比，优势，缺点
+配置简单，单机，性能符合peatio的要求, 当机消息队列会保存，信息不会丢失
+介绍流程
+
 项目的目的：介绍
+
+所有的守护进程
+rake daemon:deposit_coin                                         # Start deposit_coin script
+rake daemon:global_state                                         # Start global_state script
+rake daemon:hot_wallets                                          # Start hot_wallets script
+rake daemon:k                                                    # Start k script
+rake daemon:market_data                                          # Start market_data script
+rake daemon:matching                                             # Start matching script
+rake daemon:notification                                         # Start notification script
+rake daemon:order_processor                                      # Start order_processor script
+rake daemon:payment_transaction                                  # Start payment_transaction script
+rake daemon:pusher                                               # Start pusher script
+rake daemon:stats                                                # Start stats script
+rake daemon:trade_executor                                       # Start trade_executor script
+rake daemon:websocket_api                                        # Start websocket_api script
+rake daemon:withdraw_audit                                       # Start withdraw_audit script
+rake daemon:withdraw_coin                                        # Start withdraw_coin script
+守护进程用到的gem，使用守护进程的作用
+# 利于扩展
 用途
 交易市场，目前只有人民币对比特币的市场
 用户注册
