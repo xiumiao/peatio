@@ -4,14 +4,18 @@ class Global
   LIMIT = 80
 
   class << self
+    # 获取全局市场
     def channel
       "market-global"
     end
 
+    # 将消息发送到 http://pusher.com channel
     def trigger(event, data)
       Pusher.trigger_async(channel, event, data)
     end
 
+    # 获取所有daemones的状态
+    # 如果缓存里面有未过期的状态，才读取缓存中的状态，如果没有择取monitoring中读取并保存到缓存中
     def daemon_statuses
       Rails.cache.fetch('peatio:daemons:statuses', expires_in: 3.minute) do
         Daemons::Rails::Monitoring.statuses

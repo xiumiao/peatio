@@ -37,11 +37,13 @@ class Market < ActiveYamlBase
     @name = self[:name] || "#{base_unit}/#{quote_unit}".upcase
   end
 
+  # 获得最新报价(没有人报价就返回0.0)
   def latest_price
     Trade.latest_price(id.to_sym)
   end
 
   # type is :ask or :bid
+  # 修订金额和数量的精度
   def fix_number_precision(type, d)
     digits = send(type)['fixed']
     d.round digits, 2
@@ -57,14 +59,17 @@ class Market < ActiveYamlBase
     id
   end
 
+  # 询价币种
   def ask_currency
     Currency.find_by_code(ask["currency"])
   end
+
 
   def bid_currency
     Currency.find_by_code(bid["currency"])
   end
 
+  # 判断　是币种cny or btc
   def scope?(account_or_currency)
     code = if account_or_currency.is_a? Account
              account_or_currency.currency
@@ -77,6 +82,7 @@ class Market < ActiveYamlBase
     base_unit == code || quote_unit == code
   end
 
+  # 返回交易单位
   def unit_info
     {name: name, base_unit: base_unit, quote_unit: quote_unit}
   end

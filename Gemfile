@@ -55,6 +55,7 @@ gem 'country_select', '~> 2.1.0'
 
 # 简单来讲就是把服务器端的变量在浏览器端可用
 gem 'gon', '~> 5.2.0'
+#  http://pusher.com 封装消息
 gem 'pusher'
 gem 'eventmachine', '~> 1.0.4'
 gem 'em-websocket', '~> 0.5.1'

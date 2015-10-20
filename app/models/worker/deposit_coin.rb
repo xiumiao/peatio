@@ -28,7 +28,7 @@ module Worker
         end
 
         return if PaymentTransaction::Normal.where(txid: txid, txout: txout).first
-
+        # 如果交易没有被记录到数据库中，则创建这条交易（机器意外当机）
         tx = PaymentTransaction::Normal.create! \
           txid: txid,
           txout: txout,

@@ -108,6 +108,8 @@ limit order: 限价委托<br>
 market order: 市场价委托<br>
 price level: 物价水平<br>
 strike price: 履约价格<br>
+base unit: 基本单位
+quote　unit：　报价单位
 <br>
 2015-9-28
 ==============================
@@ -129,6 +131,12 @@ strike price: 履约价格<br>
 用到的技术栈
 语言和框架： ruby, RoR
 缓存：redis
+消息pusher服务：  http://pusher.com
+优点：如果链接的客户端很多的话，直接从服务器获取最新消息的话，会使服务器压力增加
+通过pusher提供的服务，可以直接向pusher服务器发送消息，pusher服务器负责来更新消息
+更新哪些消息：
+private-#{sn},这个表字段sn估计是专门为发送pusher而生成的，这样就不用暴漏账户id信息
+
 消息服务器：RabbitMQ，为什么选择RabbitMQ,其他消息服务器介绍及对比，优势，缺点
 配置简单，单机，性能符合peatio的要求, 当机消息队列会保存，信息不会丢失
 介绍流程
@@ -152,10 +160,27 @@ rake daemon:websocket_api                                        # Start websock
 rake daemon:withdraw_audit                                       # Start withdraw_audit script
 rake daemon:withdraw_coin                                        # Start withdraw_coin script
 守护进程用到的gem，使用守护进程的作用
+
+daemon:deposit_coin
+注册：'peatio:amqp:deposit_coin'
+功能：Sync coin deposit transactions同步货币保证金交易？
+主要是将未记录数据库的交易重新存入数据库
+coin.rake,
+rake coin:sync_deposit
+启动任务时，将未完成的交易放到队列中进行交易
+deposit_coin.rb中的depoisit!来处理这笔交易
+检查该交易，如果该交易并不存在于数据库中，则创建该笔交易
+
+daemon:global_state
+
+
 # 利于扩展
 用途
 交易市场，目前只有人民币对比特币的市场
 用户注册
 用户通过转账的方式存入人民币，或直接用人民币购买比特币，这时候需要用户提供比特币地址（地址）
 比特币的几个概念
+创世块，地址，钱包，挖矿（奖励机制，矿池）
+用户通过转账的方式存入人民币，或直接用人民币购买比特币，这时候需要用户提供比特币地址（地址）
+这时候用户就可以在交易大厅进行比特币交易了，
 
