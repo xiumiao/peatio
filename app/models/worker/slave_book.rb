@@ -35,6 +35,7 @@ module Worker
       Rails.logger.error $!.backtrace.join("\n")
     end
 
+    # 每三秒钟更新卖单和买单对应价格的数量
     def cache_book
       @managers.keys.each do |id|
         market = Market.find id
@@ -51,6 +52,7 @@ module Worker
       ::Matching::OrderBookManager.build_order @payload.order.to_h
     end
 
+    # 获取询价单
     def book
       manager.get_books(@payload.order.type.to_sym).first
     end

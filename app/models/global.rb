@@ -47,10 +47,12 @@ class Global
     "peatio:#{@currency}:#{key}:#{time_key}"
   end
 
+  # 获取所有的卖单
   def asks
     Rails.cache.read("peatio:#{currency}:depth:asks") || []
   end
 
+  # 获取所有的买单
   def bids
     Rails.cache.read("peatio:#{currency}:depth:bids") || []
   end
@@ -61,6 +63,7 @@ class Global
 
   def ticker
     ticker           = Rails.cache.read("peatio:#{currency}:ticker") || default_ticker
+    # 获取最近一分钟的交易量
     open = Rails.cache.read("peatio:#{currency}:ticker:open") || ticker[:last]
     best_buy_price   = bids.first && bids.first[0] || ZERO
     best_sell_price  = asks.first && asks.first[0] || ZERO
@@ -74,16 +77,19 @@ class Global
     })
   end
 
+  # 获取24小时内的某一币种的比特币成交量
   def h24_volume
     Rails.cache.fetch key('h24_volume', 5), expires_in: 24.hours do
       Trade.with_currency(currency).h24.sum(:volume) || ZERO
     end
   end
 
+  # 获得某一币种的所有交易记录
   def trades
     Rails.cache.read("peatio:#{currency}:trades") || []
   end
 
+  # 更新所有的买单，卖单到用户客户端
   def trigger_orderbook
     data = {asks: asks, bids: bids}
     Pusher.trigger_async(channel, "update", data)

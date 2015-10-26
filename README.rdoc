@@ -1,6 +1,8 @@
 云币在ubuntu下的安装参考：<br>
 https://github.com/peatio/peatio/blob/master/doc/setup-local-ubuntu.md <br>
 
+云币官方网站： https://yunbi.com/
+
 bitcoin网络： <br>
 https://en.bitcoin.it/wiki/Bitcoind <br>
 
@@ -172,6 +174,47 @@ deposit_coin.rb中的depoisit!来处理这笔交易
 检查该交易，如果该交易并不存在于数据库中，则创建该笔交易
 
 daemon:global_state
+global_state.rb
+global.rb
+获取所有的交易，24小时的交易记录，成交量，最佳买入、卖出价，通过pusher更新
+
+daemon:hot_wallets
+hot_wallets.rb
+currency.rb
+peatio:hotwallet:cny:balance
+peatio:hotwallet:btc:balance
+每5秒钟刷新一次所有币种的余额
+
+daemon:k
+k.rb
+每15秒获得一次1，5,15等等分钟数的K线数据并存储到redis中
+15秒的设定，其实最主要的是最新的买单和卖单，k线只是看趋势，所以15秒可以接受
+1分钟k线数据会push到redis服务器中，其它时间段的数据由1分钟数据算出
+@r.rpush k, point.to_json # 其中@r为redis对象，k="peatio:btccny:k:1"
+每个数据点的格式为
+
+[时间点, 第一个价格(开盘价）, 最高价, 最低价, 最后一个价格（收盘价）, 这个时间段成交的总量]
+
+daemon:market_data
+slave_book.rb
+每三秒钟缓存一次:买单和卖单价格对应的数量,这个数据也是供global使用
+def asks
+    Rails.cache.read("peatio:#{currency}:depth:asks") || []
+end
+
+daemon:notification
+说明：通知
+两种通知方式：短信和邮件
+sms_notification email_notification
+
+daemon:order_processor
+order_processor.rb
+每5秒钟检查一次，用来处理取消的订单
+取消订单成功后会释放锁定的资金
+如果该订单部分成交或已成交，则该订单无法取消
+
+daemon:payment_transaction
+
 
 
 # 利于扩展
