@@ -64,14 +64,14 @@ http://baike.baidu.com/view/4095865.htm <br>
 
 === 用户买入（ask）或卖出（bid）比特币的程序流程为：
 
-user buy or bid from web or api ->  # 用户通过浏览器或API提交订单<br>
+user ask or bid from web or api ->  # 用户通过浏览器或API提交订单<br>
 Private::OrderBidsController.create 或者 Private::OrderAsksController.create -> # 创建买入或卖出订单<br>
 Concerns::OrderCreation.order_submit -> # 提交订单<br>
 Ordering#submit -> # 提交订单<br>
 Ordering#do_submit -> # 提交订单到数据库(order)，锁定相应的金额(amount*volume)<br>
 AMQPQueue.enqueue -> # 将每个订单进入队列 队列的定义： app/models/amqp_queue.rb<br>
 <br>
-队列就放到了RabbitMQ服务器中<br>
+队列就放到了RabbitMQ服务器中<br>(为了保证交易顺序）
 # lib/daemons/matching_ctl 守护进程注册了matching服务<br>
 daemon会启动相应的服务worker，文件位于 app/models/worker/matching.rb<br>
 <br>
@@ -215,7 +215,14 @@ order_processor.rb
 
 daemon:payment_transaction
 
+daemon:pusher
+存在两个pusher，
+pusher_market
+pusher_member
+向会员发送ask和bid的push消息
 
+daemon:stats
+每30秒执行一次状态检查，包括会员状态
 
 # 利于扩展
 用途
