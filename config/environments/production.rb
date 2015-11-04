@@ -20,7 +20,7 @@ Peatio::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(:mangle => false)
@@ -66,7 +66,7 @@ Peatio::Application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: ENV["URL_HOST"], protocol: ENV['URL_SCHEMA'] }
 
   config.action_mailer.delivery_method = :smtp
@@ -91,6 +91,7 @@ Peatio::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  config.log_level = :debug
   config.active_record.default_timezone = :local
 
   config.middleware.insert_before Rack::Runtime, Middleware::Security

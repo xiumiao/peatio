@@ -2,7 +2,7 @@ header.navbar.navbar-default.navbar-static-top role = "navigation"
   .container-fluid
     ul#menu.nav.navbar-nav.navbar-left
       a.navbar-brand href=root_path
-        | PEATIO
+        | 大圆银泰
         | &nbsp;
         = @market.name
 
@@ -23,4 +23,4 @@ header.navbar.navbar-default.navbar-static-top role = "navigation"
       - else
         p.navbar-text
           == t('private.markets.mask.warning')
-      = render partial: 'language'
+      /= render partial: 'language'

@@ -14,7 +14,7 @@ GIT
       activerecord (>= 3)
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     aasm (3.4.0)
     actionmailer (4.0.12)
@@ -295,6 +295,8 @@ GEM
       rails (~> 4.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.4)
     railties (4.0.12)
       actionpack (= 4.0.12)
       activesupport (= 4.0.12)
@@ -479,6 +481,8 @@ DEPENDENCIES
   rails (~> 4.0.12)
   rails-i18n
   rails-observers
+  rails_serve_static_assets
+  rails_stdout_logging
   rbtree
   redis-rails
   rest-client (~> 1.6.8)

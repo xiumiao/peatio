@@ -51,8 +51,8 @@ zh-CN:
         title: 人民币充值
         desc: "通过银行转账汇款的方式，经人工审核后充值人民币到您的交易账户中，流程如下："
         desc_item_1: "1. 提交以下表单，获得转账识别码；"
-        desc_item_2: "2. 银行转账汇款到云币交易所开户行，务必在备注栏填写识别码；"
-        desc_item_3: "3. 人工审核汇款记录，确认后充值到您的云币账户。"
+        desc_item_2: "2. 银行转账汇款到大圆银泰交易所开户行，务必在备注栏填写识别码；"
+        desc_item_3: "3. 人工审核汇款记录，确认后充值到您的交易账户。"
         attention: "特别提醒：充值银行账户姓名必须与您的实名认证姓名一致。"
         from: 汇款人
         to: 收款人
@@ -67,7 +67,7 @@ zh-CN:
         to_bank_name: 收款银行
         opening_bank_name: 开户行
       deposit_btc:
-        title: 比特币充值
+        title: 购买普洱茶
       deposit_coin:
         address: 地址
         new_address: 生成新地址

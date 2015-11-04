@@ -1,10 +1,20 @@
+- id: puercny
+  code: 3
+  name: Puer/CNY      # default name
+  base_unit: puer
+  quote_unit: cny
+  #price_group_fixed: 1 # aggregate price levels in orderbook
+  bid: {fee: 0, currency: puer, fixed: 2}
+  ask: {fee: 0, currency: btc, fixed: 4}
+  sort_order: 1
+  #visible: false     # default to true
 - id: btccny
   code: 3
-  #name: BTC/CNY      # default name
+  name: BTC/CNY      # default name
   base_unit: btc
   quote_unit: cny
   #price_group_fixed: 1 # aggregate price levels in orderbook
   bid: {fee: 0, currency: cny, fixed: 2}
   ask: {fee: 0, currency: btc, fixed: 4}
-  sort_order: 1
+  sort_order: 2
   #visible: false     # default to true

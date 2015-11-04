@@ -7,3 +7,8 @@ class BaseMailer < ActionMailer::Base
   default from: ENV['SYSTEM_MAIL_FROM'],
           reply_to: ENV['SUPPORT_MAIL']
 end
+# app/mailers/application_mailer.rb
+# class BaseMailer < ActionMailer::Base
+#   default from: "wiki@jsdttec.com"
+#   layout 'mailers/application'
+# end

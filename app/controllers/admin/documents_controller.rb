@@ -12,7 +12,7 @@ module Admin
 
     def create
       if @document.save
-        redirect_to admin_documents_path
+        redirect_to admin_documents_path id:@document.id
       else
         render :new
       end

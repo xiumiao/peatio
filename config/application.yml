@@ -15,16 +15,16 @@ defaults: &defaults
   # system notify mail settings
   # --------------------------------------------------------------
   SMTP_PORT: 25
-  SMTP_DOMAIN: smtp.jsdttec.com
-  SMTP_ADDRESS: lixiumiao@jsdttec.com
-  SMTP_USERNAME: lixiumiao
-  SMTP_PASSWORD: lxm1983211
-  SMTP_AUTHENTICATION: plain # could be plain, login or cram_md5
+  SMTP_DOMAIN: qq.com
+  SMTP_ADDRESS: smtp.qq.com
+  SMTP_USERNAME: wiki@jsdttec.com
+  SMTP_PASSWORD: Wiki123
+  SMTP_AUTHENTICATION: login # could be plain, login or cram_md5
 
-  SUPPORT_MAIL: lixiumiao@jsdttec.com
-  SYSTEM_MAIL_FROM: lixiumiao@jsdttec.com
-  SYSTEM_MAIL_TO: lixiumiao@jsdttec.com
-  OPERATE_MAIL_TO: lixiumiao@jsdttec.com
+  SUPPORT_MAIL: wiki@jsdttec.com
+  SYSTEM_MAIL_FROM: wiki@jsdttec.com
+  SYSTEM_MAIL_TO: wiki@jsdttec.com
+  OPERATE_MAIL_TO: wiki@jsdttec.com
 
   # WebSocket Streaming API settings
   # --------------------------------------------------------------

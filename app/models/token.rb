@@ -45,7 +45,8 @@ class Token < ActiveRecord::Base
       .order(:created_at).reverse_order.first
 
     # 测试阶段去掉邮箱验证时间检查
-    if latest && latest.created_at > 30.minutes.ago
+    if false
+    # if latest && latest.created_at > 30.minutes.ago
       self.errors.add(:base, :too_soon)
     end
   end

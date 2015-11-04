@@ -21,11 +21,14 @@ module Peatio
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    config.i18n.enforce_available_locales = false
+    config.i18n.enforce_available_locales = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'custom', '*.{yml}')]
-    config.i18n.available_locales = ['en', 'zh-CN', 'ko']
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'custom', 'zh-CN.yml')]
+    # 只显示中文界面
+    config.i18n.available_locales = ['zh-CN']
+    config.i18n.default_locale = 'zh-CN'
+    # config.i18n.available_locales = ['en', 'zh-CN', 'ko']
 
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/extras)
 
@@ -45,5 +48,9 @@ module Peatio
 
     # Observer configuration
     config.active_record.observers = :transfer_observer
+    # 让rails4以上的版本支持在production模式下访问静态资源
+    config.assets.enabled = true
+    config.serve_static_assets = true
+    config.action_dispatch.x_sendfile_header = nil
   end
 end

@@ -23,7 +23,7 @@ table#setting_list.table
       p.text-ignore = t('.verification.description')
     td.col-xs-7.vertical-center
       - if current_user.id_document_verified?
-        a href="#" class="btn btn-success btn-block disabled" role="button"
+        a href=  edit_id_document_path class="btn btn-success btn-block" role="button"
           i.fa.fa-check-circle
           span = t('.verification.verified')
       - else

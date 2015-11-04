@@ -1,5 +1,5 @@
 .jumbotron
-  h2 貔貅OAuth认证接口
+  h2 OAuth认证接口
 
 .panel.panel-default
   .panel-heading
@@ -7,15 +7,15 @@
 
   .panel-body
     p OAuth（开放授权）是一个开放标准。OAuth允许用户让第三方应用访问该用户在貔貅上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。
-    p 貔貅OAuth认证允许用户将一个受限制的令牌(token)授权给第三方应用。第三方应用可以通过令牌访问用户在貔貅上的资源，例如用户资料，交易记录，挂单买卖。
-    p OAuth是一个涉及到资源网站(貔貅交易所), 第三方应用, 以及用户三方的流程。本文档的目标读者是第三方应用的开发人员, 描述了资源网站(貔貅交易所)与第三方应用之间的交互流程。
+    p OAuth认证允许用户将一个受限制的令牌(token)授权给第三方应用。第三方应用可以通过令牌访问用户在交易软件上的资源，例如用户资料，交易记录，挂单买卖。
+    p OAuth是一个涉及到资源网站(大圆银泰交易所), 第三方应用, 以及用户三方的流程。本文档的目标读者是第三方应用的开发人员, 描述了资源网站(大圆银泰交易所)与第三方应用之间的交互流程。
 
 .panel.panel-default
   .panel-heading
     h3 OAuth Client注册
 
   .panel-body
-    p 第三方应用必须事先在貔貅注册，获取client id/secret之后才能使用貔貅OAuth接口。具体步骤请通过网站下方联系方式联系管理员。
+    p 第三方应用必须事先注册，获取client id/secret之后才能使用OAuth接口。具体步骤请通过网站下方联系方式联系管理员。
     p 注册之后您将获得client id/secret, 请妥善保管。
 
 .panel.panel-default
@@ -34,7 +34,7 @@
     p 例如，您的应用想访问用户基本信息和交易记录:
     pre: code
       | scope=profile+history+trade
-    p 用户访问该地址会看到一个授权页面，决定是否授权。用户同意授权后貔貅交易所会生成auth code, 并通过redirect_uri传回给您的应用.
+    p 用户访问该地址会看到一个授权页面，决定是否授权。用户同意授权后大圆银泰交易所会生成auth code, 并通过redirect_uri传回给您的应用.
 
 .panel.panel-default
   .panel-heading

@@ -288,6 +288,7 @@ zh-CN:
     currency:
       btc: BTC
       cny: CNY
+      kg: KG
       doge: DOGE
       pts: PTS
       ltc: LTC
@@ -457,7 +458,7 @@ zh-CN:
       go: 立即充值
     satoshi:
       key: 块链
-      title: 比特币充值
+      title: 购买普洱茶
       intro: 从本地钱包客户端或任意在线钱包客户端转出比特币到我们为您提供的充值地址。
       latency: 10 分钟到账
       transfer: 自动
@@ -1440,8 +1441,10 @@ zh-CN:
     withdraw_state:
       subject: "[貔貅] 您的提现状态更新"
       your_state: '您的提现状态：'
+  'true': '成功'
+  'false': '失败'
   view_on_github: 到 Github 上查看
-  slogan: 貔貅，将致力于成为世界级的交易软件。
+  slogan: 大圆银泰普洱茶交易软件
   tags:
     vip: VIP
     hero: 超级用户
@@ -1791,8 +1794,8 @@ zh-CN:
       go: 立即提现
     satoshi:
       key: 块链
-      title: 比特币提现
-      intro: 将您在貔貅的比特币余额提取到您的钱包账户
+      title: 普洱茶提现
+      intro: 将您在大圆银泰的普洱茶提取到您的钱包账户
       latency: 30 分钟到账
       transfer: 人工处理
       go: 立即提现

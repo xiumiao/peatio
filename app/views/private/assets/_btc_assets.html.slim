@@ -11,7 +11,7 @@
               span.pull-left = t('.total')
               span.pull-right
                 == t("currency.icon.btc")
-                = @btc_proof.asset_sum
+                /= @btc_proof.asset_sum
           .clearfix
           .row
             table.table
@@ -22,7 +22,7 @@
                   td
                     = t('.balance')
               tbody
-                - @btc_proof.addresses.each do |entry|
+                /- @btc_proof.addresses.each do |entry|
                   tr
                     td
                       = link_to entry['address'], @btc_proof.address_url(entry['address'])

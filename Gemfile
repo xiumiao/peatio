@@ -1,4 +1,4 @@
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
 gem 'rails', '~> 4.0.12'
 gem 'rails-i18n'
@@ -125,4 +125,9 @@ group :test do
   # rspec-rails rely on test-unit if rails version less then 4.1.0
   # but test-unit has been removed from ruby core since 2.2.0
   gem 'test-unit'
+  # 让rails4以上的版本支持在production模式下访问静态资源
+  # config.serve_static_assets = true
+  # config.action_dispatch.x_sendfile_header = nil
+  gem 'rails_serve_static_assets'
+  gem 'rails_stdout_logging'
 end

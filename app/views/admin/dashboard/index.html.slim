@@ -1,16 +1,16 @@
 .row
   .col-xs-24
     .panel.panel-primary
-      .panel-heading Currencies Summary
+      .panel-heading 账户汇总
       .panel-body
         table.table.table-condensed
           thead: tr
-            th Name
-            th.text-right Locked
-            th.text-right Balance
-            th.text-right Sum
-            th.text-right Hot-Wallet Balance
-            th.text-right Cold-Wallet Balance
+            th 种类
+            th.text-right 锁定数量
+            th.text-right 余额
+            th.text-right 总计
+            th.text-right 钱包余额
+            th.text-right 冷钱包余额
 
           tbody
             - @currencies_summary.each do |c|
@@ -33,12 +33,12 @@
         span Tips: Locked + Balance = Sum | Hot-Wallet + Cold-Wallet = Sum
 .row
   .col-xs-12: .panel.panel-primary
-    .panel-heading Daemon Statuses
+    .panel-heading 守护进程状态
     .panel-body
       table.table.table-condensed
         thead: tr
-          th Name
-          th State
+          th 进程名
+          th 状态
         tbody
           - @daemon_statuses.each do |daemon, state|
             tr
@@ -49,13 +49,13 @@
                 td.text-info = daemon
                 td.text-info = state
   .col-xs-12: .panel.panel-primary
-    .panel-heading Exchange Summary
+    .panel-heading 账户信息概览
     .panel-body
       table.table.table-condensed
         thead: tr
-          th Index
-          th Count
+          th 索引
+          th 数量
         tbody
           tr
-            td Register Count
+            td 注册账户
             td = @register_count

@@ -1,7 +1,7 @@
 development: &defaults
   adapter: mysql2
   encoding: utf8
-  database: peatio_development
+  database: peatio_production
   username: root
   password: lixiumiao
   pool: 10
