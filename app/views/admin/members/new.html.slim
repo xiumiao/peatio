@@ -1,0 +1,9 @@
+h1 = '新增会员单位'
+= simple_form_for @identity, :url => '/auth/identity/register' do |f|
+  = f.input :email, :input_html => {:name => 'email', :autofocus => 'true'}
+  = f.input :password, :input_html => {:name => 'password'}
+  = f.input :password_confirmation, :input_html => {:name => 'password_confirmation'}
+  hr.split
+  = f.text_field :id_document_type, :input_html=>{:name=>'id_document_type'}
+  = f.button :wrapped, t('header.signup'), cancel: root_path
+

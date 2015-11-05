@@ -43,7 +43,7 @@ SimpleForm.setup do |config|
 
     ## Inputs
     #
-    b.use :label, wrap_with: { tag: :div, class: 'col-xs-8 text-right'}
+    b.use :label, wrap_with: { tag: :div, class: 'col-xs-4 text-right'}
     b.use :input, wrap_with: { tag: :div, class: 'col-xs-14'}
     b.use :error, wrap_with: { tag: :span, class: 'error text-danger col-xs-14 col-xs-offset-8' }
     b.use :hint,  wrap_with: { tag: :span, class: 'hint col-xs-14 col-xs-offset-8' }

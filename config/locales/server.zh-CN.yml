@@ -1029,9 +1029,10 @@ zh-CN:
         email: 邮箱地址
         password: 密码
       identity:
-        email: 例如：xiaobai@example.com
+        email: 例如：jsdt@jsdttec.com
         password: 请设置登录密码
         password_confirmation: 确认密码
+        id_document_type: '证件类型'
         edit:
           password: 请设置新密码
       document:
@@ -1158,9 +1159,11 @@ zh-CN:
       index:
         search: 搜索
         members: 用户列表
+        oraganization_members: 会员单位列表
         email: 邮箱地址
         name: 姓名
         phone: 手机号码
+        create_oraganization: 添加会员单位
         wallet_address: 钱包地址
       show:
         member_title: 用户信息
@@ -1653,6 +1656,8 @@ zh-CN:
           deposits: 充值通道
           sites_statistics: 数据统计
           operating: 运营管理
+          common_members: 交易商
+          oraganization: 会员单位
         items:
           operating:
             proofs: 资产证明

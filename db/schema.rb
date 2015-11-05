@@ -11,15 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405053726) do
+ActiveRecord::Schema.define(version: 20151105064451) do
 
-  # 账户金额变动记录？
   create_table "account_versions", force: true do |t|
     t.integer  "member_id"
     t.integer  "account_id"
-    t.integer  "reason" #交易类型
-    t.decimal  "balance",         precision: 32, scale: 16 # 余额
-    t.decimal  "locked",          precision: 32, scale: 16 # 锁定金额
+    t.integer  "reason"
+    t.decimal  "balance",         precision: 32, scale: 16
+    t.decimal  "locked",          precision: 32, scale: 16
     t.decimal  "fee",             precision: 32, scale: 16
     t.decimal  "amount",          precision: 32, scale: 16
     t.integer  "modifiable_id"
@@ -35,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150405053726) do
   add_index "account_versions", ["member_id", "reason"], name: "index_account_versions_on_member_id_and_reason", using: :btree
   add_index "account_versions", ["modifiable_id", "modifiable_type"], name: "index_account_versions_on_modifiable_id_and_modifiable_type", using: :btree
 
-  # 会员账号
   create_table "accounts", force: true do |t|
     t.integer  "member_id"
     t.integer  "currency"
@@ -183,6 +181,10 @@ ActiveRecord::Schema.define(version: 20150405053726) do
     t.string   "zipcode"
     t.integer  "id_bill_type"
     t.string   "aasm_state"
+    t.integer  "member_type"
+    t.integer  "oraganization"
+    t.string   "faxtel"
+    t.string   "telphone"
   end
 
   create_table "identities", force: true do |t|

@@ -3,9 +3,14 @@ module Admin
     load_and_authorize_resource
 
     def index
+      type = params[:type]
       @search_field = params[:search_field]
       @search_term = params[:search_term]
-      @members = Member.search(field: @search_field, term: @search_term).page params[:page]
+      @members = Member.includes(:id_document).search(field: @search_field, term: @search_term).members(type).references(:id_document).page params[:page]
+    end
+
+    def new
+      @identity = env['omniauth.identity'] || Identity.new
     end
 
     def show

@@ -19,6 +19,10 @@ class Member < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
 
   scope :enabled, -> { where(disabled: false) }
+  scope :members, ->(type) {
+    joins(:id_document).
+    where(['id_documents.member_type = ?', type])
+  }
 
   delegate :activated?, to: :two_factors, prefix: true, allow_nil: true
   delegate :name,       to: :id_document, allow_nil: true
