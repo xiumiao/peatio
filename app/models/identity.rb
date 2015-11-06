@@ -1,7 +1,7 @@
 class Identity < OmniAuth::Identity::Models::ActiveRecord
   auth_key :email
   attr_accessor :old_password
-
+  before_validation :test
   MAX_LOGIN_ATTEMPTS = 5
 
   validates :email, presence: true, uniqueness: true, email: true
@@ -24,4 +24,7 @@ class Identity < OmniAuth::Identity::Models::ActiveRecord
     self.email.try(:downcase!)
   end
 
+  def test
+    puts 'fff'
+  end
 end

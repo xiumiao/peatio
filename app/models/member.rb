@@ -1,6 +1,7 @@
 class Member < ActiveRecord::Base
   acts_as_taggable
   acts_as_reader
+  attr_accessor :register_org
 
   has_many :orders
   has_many :accounts
@@ -36,6 +37,9 @@ class Member < ActiveRecord::Base
   validates :email, email: true, uniqueness: true, allow_nil: true
 
   before_create :build_default_id_document
+  skip_callback :create, :before, :build_default_id_document, if: ->{
+                         register_org
+                       }
   after_create  :touch_accounts
   after_update :resend_activation
   after_update :sync_update

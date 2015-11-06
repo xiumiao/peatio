@@ -1028,11 +1028,12 @@ zh-CN:
       session:
         email: 邮箱地址
         password: 密码
+      member:
+        id_document_type: '证件类型'
       identity:
         email: 例如：jsdt@jsdttec.com
         password: 请设置登录密码
         password_confirmation: 确认密码
-        id_document_type: '证件类型'
         edit:
           password: 请设置新密码
       document:
@@ -1357,6 +1358,8 @@ zh-CN:
         id_card: 身份证
         passport: 护照
         driver_license: 驾照
+        business_license: 营业执照
+        organization_code: 机构代码
       id_bill_type:
         bank_statement: 银行账单
         tax_bill: 税单
@@ -1493,6 +1496,7 @@ zh-CN:
     signin: 登录
     signout: 安全退出
     signup: 创建账户
+    signup_organization: 创建会员单位
     login_via_weibo: 微博登陆
     funds: 我的资产
     getstart: 前往交易大厅

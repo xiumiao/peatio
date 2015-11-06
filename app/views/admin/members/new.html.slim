@@ -1,9 +1,25 @@
 h1 = '新增会员单位'
-= simple_form_for @identity, :url => '/auth/identity/register' do |f|
-  = f.input :email, :input_html => {:name => 'email', :autofocus => 'true'}
-  = f.input :password, :input_html => {:name => 'password'}
-  = f.input :password_confirmation, :input_html => {:name => 'password_confirmation'}
-  hr.split
-  = f.text_field :id_document_type, :input_html=>{:name=>'id_document_type'}
-  = f.button :wrapped, t('header.signup'), cancel: root_path
+= simple_form_for @member, :url=>'/admin/members' do |f|
+  = f.input :email, label: '电子邮箱'
+  = f.simple_fields_for :id_document do |id_document|
+    = id_document.input :name, label: '会员名称'
+    = id_document.input :member_type,  collection:[['经济业务基本账户','0']], selected: ['经济业务基本账户','1'], label: '会员类型'
+    = id_document.input :id_document_type, collection:[['机构代码','3'],['营业执照','4'],['身份证','0']], selected: ['机构代码','1'],label: '证件类型'
+    = id_document.input :id_document_number, label: '证件号码'
+    = id_document.input :faxtel, label: '传真号码'
+    = id_document.input :zipcode, label: '邮政编码'
+    = id_document.input :telphone, label: '联系电话'
+    = id_document.input :address, label: '通讯地址'
+
+
+  /= f.input :email, :input_html => {:name => 'email', :autofocus => 'true'}
+  /= f.input :password, :input_html => {:name => 'password'}
+  /= f.input :password_confirmation, :input_html => {:name => 'password_confirmation'}
+  /div.form-group
+  /  div.col-xs-4.text-right
+  /    label = '证件类型'
+  /  div.col-xs-14
+  /    = text_field_tag :id_document_type, nil, class:'required form-control'
+  /hr.split
+  = f.button :wrapped, t('header.signup_organization'), cancel: admin_dashboard_path
 
