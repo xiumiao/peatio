@@ -21,7 +21,7 @@ Peatio::Application.routes.draw do
   get '/auth/failure' => 'sessions#failure', :as => :failure
   match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
 
-  resource :member, :only => [:edit, :update]
+  resources :members , :only => [:index, :edit, :update ]
   resource :identity, :only => [:edit, :update]
 
   namespace :verify do

@@ -18,7 +18,12 @@ class SessionsController < ApplicationController
     end
 
     if @member
-      if @member.disabled?
+      if !@member.admin? && !@member.has_employer? # 非管理员，注册后未选择会员单位
+        clear_failed_logins
+        reset_session rescue nil
+        session[:member_id] = @member.id
+        redirect_to edit_member_path(@member.id)
+      elsif @member.disabled?
         increase_failed_logins
         redirect_to signin_path, alert: t('.disabled')
       else

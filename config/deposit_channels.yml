@@ -14,3 +14,7 @@
       branch: 'Your Bank Branch'
       holder: 'Your Account Holder'
       account: 'Your Account Number'
+- id: 300
+  key: puercha
+  min_confirm: 1
+  max_confirm: 6

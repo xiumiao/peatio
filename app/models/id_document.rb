@@ -10,6 +10,8 @@ class IdDocument < ActiveRecord::Base
   accepts_nested_attributes_for :id_bill_file
 
   belongs_to :member,  autosave: true
+  belongs_to :employer, :polymorphic => true
+  has_many  :members, as: :employer
   before_create :test
 
   validates_presence_of :name, :id_document_type, :id_document_number, :id_bill_type, allow_nil: true
@@ -37,6 +39,18 @@ class IdDocument < ActiveRecord::Base
       transitions from: [:verifying, :verified],  to: :unverified
     end
   end
+
+  def employer? # 是会员单位
+    member_type == 0
+  end
+
+  class << self
+    def all_employers
+      select(:name,:id).where(['member_type=0']).map.each {|e|[e.name,e.id]}
+    end
+
+  end
+
   def test
     puts 'fff'
   end

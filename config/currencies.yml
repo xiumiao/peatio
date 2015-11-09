@@ -24,3 +24,16 @@
     accounts:
       -
         address: 1HjfnJpQmANtuW7yr1ggeDfyfe1kDK7rm3
+- id: 3
+  key: puercha
+  code: kg
+  symbol: "T"
+  coin: true
+  quick_withdraw_max: 0
+  rpc: http://lixiumiao:3bzo5ze667kRRKyv9N5p3ed5UmNPJmXwYeNr5wGX8AKW@127.0.0.1:18332
+  blockchain: https://blockchain.info/tx/#{txid}
+  address_url: https://blockchain.info/address/#{address}
+  assets:
+    accounts:
+      -
+        address: 1HjfnJpQmANtuW7yr1ggeDfyfe1kDK7rm3

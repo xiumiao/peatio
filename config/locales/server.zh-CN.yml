@@ -1011,15 +1011,24 @@ zh-CN:
         title: 登录我的账户
         intro: 现在登录，以便您开始交易，随时关注交易动态。
     identities:
-      panel: 创建账户
+      panel: 创建交易商账户
       new:
-        title: 创建我的账户
-        intro: 这将是您的各项服务所需要的用户名，例如交易购买、转账、提币、提现等，为了您的账户安全，尽量避免不安全的因素，请您填写完整。
+        title: 创建交易商账户
+        intro: 这将是您的各项服务所需要的用户名，例如交易购买、转账、提现等，为了您的账户安全，尽量避免不安全的因素，请您填写完整。
       edit:
         panel: 我的账户
         title: 修改密码
     two_factors:
       panel: 两步验证
+    members:
+      index:
+        panel: '交易商列表'
+        title: '交易商列表'
+        intro: '显示所有属于该会员单位的交易商'
+      edit:
+        pannel: '选择会员单位'
+        title: '会员单位'
+        intro: '请选择您的会员单位'
   simple_form:
     placeholders:
       deposit:
@@ -1495,7 +1504,7 @@ zh-CN:
     settings: 账户
     signin: 登录
     signout: 安全退出
-    signup: 创建账户
+    signup: 创建交易商
     signup_organization: 创建会员单位
     login_via_weibo: 微博登陆
     funds: 我的资产
@@ -1674,9 +1683,9 @@ zh-CN:
     application:
       close: 关闭
     meta:
-      page_title: Peatio - The Opensource Cryptocurrency Exchange
-      page_description: Peatio - The Opensource Cryptocurrency Exchange
-      page_keywords: Peatio,Opensource,Exchange,Cryptocurrency
+      page_title: 大圆银泰交易软件
+      page_description: 大圆银泰交易软件
+      page_keywords: 大圆银泰交易软件
   members:
     edit:
       name: 为了保障资金安全，请填写您的真实姓名等信息。

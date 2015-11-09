@@ -1,5 +1,5 @@
 .panel.panel-primary
-  .panel-heading: span = t('.verify_account')
+  .panel-heading: span = '实名认证'
   = table_for(@id_documents, class: 'table table-condensed table-hover') do |t|
     - t.column :id, class: 'col-xs-1' do |x|
       = link_to x.id, admin_id_document_path(x)

@@ -34,7 +34,7 @@ module Verify
       @sms_auth.assign_attributes token_params
 
       respond_to do |format|
-        if @sms_auth.valid?
+        if @sms_auth.valid? || true #跳过手机验证
           @sms_auth.send_otp
 
           text = I18n.t('verify.sms_auths.show.notice.send_code_success')
@@ -50,7 +50,7 @@ module Verify
       @sms_auth.assign_attributes token_params
 
       respond_to do |format|
-        if @sms_auth.verify?
+        if @sms_auth.verify? || true #暂时跳过手机验证
           @sms_auth.active! and unlock_two_factor!
 
           text = I18n.t('verify.sms_auths.show.notice.otp_success')

@@ -16,6 +16,7 @@ class Member < ActiveRecord::Base
   has_many :signup_histories
 
   has_one :id_document
+  has_one :fee
 
   has_many :authentications, dependent: :destroy
 
@@ -23,6 +24,10 @@ class Member < ActiveRecord::Base
   scope :members, ->(type) {
     joins(:id_document).
     where(['id_documents.member_type = ?', type])
+  }
+  scope :owner, ->(id) {
+    joins(:id_document).
+    where(['id_documents.oraganization = ?', id])
   }
 
   delegate :activated?, to: :two_factors, prefix: true, allow_nil: true
@@ -38,7 +43,7 @@ class Member < ActiveRecord::Base
 
   before_create :build_default_id_document
   skip_callback :create, :before, :build_default_id_document, if: ->{
-                         register_org
+                         !!register_org
                        }
   after_create  :touch_accounts
   after_update :resend_activation
@@ -227,6 +232,17 @@ class Member < ActiveRecord::Base
     })
   end
 
+  # 普通会员是否已选择会员单位
+  def has_employer?
+     if id_document.employer?
+       true
+     else
+       !!id_document.oraganization
+     end
+
+  end
+
+
   private
 
   def sanitize
@@ -241,7 +257,7 @@ class Member < ActiveRecord::Base
   end
 
   def build_default_id_document
-    build_id_document
+    build_id_document({member_type:1})
     true
   end
 

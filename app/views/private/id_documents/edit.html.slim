@@ -8,9 +8,8 @@ hr.split
 
 = simple_form_for @id_document do |f|
   = f.input :member_type, collection:[['普通会员','1'],['会员单位','0']],label: '会员类型', disabled: true
-  - if @id_document.member_type == 1 # 普通会员时，显示会员单位信息
-    = f.input :oraganization
-  - end
+  - if @id_document.member_type == 1 # 普通会员时，显示
+    = f.input :oraganization, collection:IdDocument.all_employers, label: '所属会员单位'
   = f.input :name, label: t('.name')
   = f.input :birth_date, as: :date, label: t('.birth_date'), \
     start_year: Date.today.year - 70, \

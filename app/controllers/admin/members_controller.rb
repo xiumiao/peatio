@@ -17,7 +17,9 @@ module Admin
     def create
       @member = Member.new member_params
       @id_document = IdDocument.new id_document_params
+      @fee = Fee.new fee_params
       @member.id_document = @id_document
+      @member.fee = @fee
       @member.register_org = true
       if  @member.save
         redirect_to admin_members_path(:type=>0)
@@ -42,7 +44,7 @@ module Admin
 
     def active
       @member.update_attribute(:activated, true)
-      # 激活账户，如果是通过管理员后台注册的会员单位，需要创建密码重设
+      # 激活账户，如果是通过管理员后台注册的会员单位，目前需要创建密码重设
       @identity = Identity.find_by_email @member.email
       unless @identity
         identity = Identity.new({email:@member.email,password:'test111111',password_confirmation:'test111111'})
@@ -67,6 +69,10 @@ module Admin
 
     def id_document_params
       params.required(:member).required(:id_document).permit!
+    end
+
+    def fee_params
+      params.required(:member).required(:fee).permit!
     end
   end
 end

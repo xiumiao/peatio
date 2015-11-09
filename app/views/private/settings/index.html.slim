@@ -18,7 +18,7 @@ table#setting_list.table
     td.col-xs-2.text-center.vertical-center: i.fa.fa-thumbs-o-up.fa-2x
     td.col-xs-15
       h4
-        span = t('.verification.title')
+        span = '实名认证'
         i.fa.fa-bolt.text-warning
       p.text-ignore = t('.verification.description')
     td.col-xs-7.vertical-center
@@ -96,6 +96,12 @@ table#setting_list.table
   ul.list-group
     - if current_user.admin?
       span.label.label-warning ADMIN
+    - elsif current_user.id_document.employer?
+      = link_to  '查看单位所有交易商', members_path
+    - else
+      p.text-ignore = '所属上级会员单位 :'
+      span
+      h3= IdDocument.find(current_user.id_document.oraganization).name
     - current_user.tag_list.each do |key|
       span.label.label-info
         = member_tag(key)

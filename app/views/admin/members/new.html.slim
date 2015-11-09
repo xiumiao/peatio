@@ -10,7 +10,10 @@ h1 = '新增会员单位'
     = id_document.input :zipcode, label: '邮政编码'
     = id_document.input :telphone, label: '联系电话'
     = id_document.input :address, label: '通讯地址'
-
+  = f.simple_fields_for :fee do |fee|
+    = fee.input :fee_type, collection:[['按比例','0'],['按金额',1]],selected: ['按比例','0'], label: '收费类型'
+    = fee.input :factor_bid, input_html:{value:'0.00',class:'text-right'}, label: '买入手续费'
+    = fee.input :factor_ask, input_html:{value:'0.00',class:'text-right'}, label: '卖出手续费'
 
   /= f.input :email, :input_html => {:name => 'email', :autofocus => 'true'}
   /= f.input :password, :input_html => {:name => 'password'}

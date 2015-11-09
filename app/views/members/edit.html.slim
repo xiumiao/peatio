@@ -1,3 +1,4 @@
 = simple_form_for @member do |f|
-  = f.input :display_name
+  = f.simple_fields_for :id_document do |id_document|
+    = id_document.input :oraganization, collection:IdDocument.all_employers ,label: '选择会员单位'
   = f.button :wrapped, t('actions.submit')
