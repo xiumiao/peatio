@@ -1,6 +1,6 @@
 module Private
   module Deposits
-    class PuerchasController < BaseController
+    class PuersController < BaseController
       include ::Deposits::CtrlCoinable
     end
   end

@@ -9,7 +9,7 @@
       = form_for form_target, url: url, html: {method: :get, class: 'form-horizontal'} do |f|
         - form_target.filters.each do |filter|
           div.form-group
-            = f.datagrid_label filter, class: "col-xs-2 control-label"
+            = f.datagrid_label filter, class: "col-xs-4 control-label"
             div.col-xs-10
               = f.datagrid_filter filter, class: "form-control"
         div.form-group

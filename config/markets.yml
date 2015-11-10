@@ -10,7 +10,7 @@
   mini_board_lot: 100 #最小手数
   #visible: false     # default to true
 - id: btccny
-  code: 2
+  code: 3
   name: BTC/CNY      # default name
   base_unit: btc
   quote_unit: cny
@@ -20,7 +20,7 @@
   sort_order: 2
   #visible: false     # default to true
 - id: tong
-  code: 3
+  code: 2
   name: 铜/CNY      # default name
   base_unit: tong
   quote_unit: cny

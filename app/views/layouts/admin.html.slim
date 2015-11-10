@@ -64,8 +64,12 @@ html lang="en"
             ul.dropdown-menu
               - if can? :stat, Member
                 li class = check_active(Member)
-                  = link_to Member.model_name.human, admin_statistic_members_path
-
+                  = link_to '会员信息统计', admin_statistic_members_path
+              - if can? :read, Trade
+                li = link_to '已交易统计', admin_statistic_trades_path
+                li = link_to '全部订单', admin_statistic_orders_path
+                li = link_to '入金管理', admin_statistic_deposits_path
+                li = link_to '出金管理', admin_statistic_withdraws_path
         ul.nav.navbar-nav.navbar-right
           li = link_to t('actions.back'), main_app.root_path
 

@@ -1,5 +1,5 @@
 module Deposits
-  class Puercha < ::Deposit
+  class Puer < ::Deposit
     include ::AasmAbsolutely
     include ::Deposits::Coinable
   end

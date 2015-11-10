@@ -10,5 +10,5 @@
         - if groups
           - groups.each do |key, val|
             .datagrid.group.row
-              span.col-xs-2.title = t("admin.statistic.#{controller_name}.#{controller.action_name}.#{key}")
+              span.col-xs-4.title = t("admin.statistic.#{controller_name}.#{controller.action_name}.#{key}")
               span.col-xs-10.value = val
