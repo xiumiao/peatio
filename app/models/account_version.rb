@@ -52,30 +52,7 @@ class AccountVersion < ActiveRecord::Base
     select = Account.unscoped.select(values).where(id: account_id, balance: balance, locked: locked).to_sql
     stmt   = "INSERT INTO account_versions (#{attrs.keys.join(',')}) #{select}"
 
-    # 添加手续费转账功能()
-    if attrs[:reason] == Account::STRIKE_SUB \
-                and attrs[:fee] > 0 \
-                  and attrs[:currency] == Currency.enumerize[:cny]
-      # if 该交易账户是 会员单位
-      #    不做处理，还是返回手续费
-      # elsif 该交易账户是 交易商
-      #  查找该账户的会员单位，按分成比例给该会员账户账上添加手续费
-      # else
-      # end
-      if account.member.employer?
 
-
-      else
-        fee  = attrs[:fee]
-        company = account.member.id_document.employer.member
-        cny_account  = company.cny # 目前只扣除人民币账户
-        fee_rate  = company.fee # 取出该会员单位约定手续费分成比例
-        company_fee = fee_rate.factor_bid*fee
-        platform_fee  = fee - company_fee
-        cny_account.change_balance_and_locked(company_fee, Account::ZERO)
-
-      end
-    end
     connection.insert(stmt).tap do |id|
       if id == 0
         record = new attrs

@@ -101,6 +101,31 @@ class Account < ActiveRecord::Base
       attributes.merge! locked: locked, balance: balance
 
       AccountVersion.optimistically_lock_account_and_create!(account.balance, account.locked, attributes)
+      # 添加手续费转账功能()
+
+      if AccountVersion::REASON_CODES[attributes[:reason]] == AccountVersion::REASON_CODES[Account::STRIKE_ADD] \
+                and attributes[:fee] > 0 \
+                  and attributes[:currency] == :cny
+        # if 该交易账户是 会员单位
+        #    不做处理，还是返回手续费
+        # elsif 该交易账户是 交易商
+        #  查找该账户的会员单位，按分成比例给该会员账户账上添加手续费
+        # else
+        # end
+        binding.remote_pry
+        if member.employer?
+
+        else
+          fee  = attrs[:fee]
+          company = member.id_document.employer.member
+          cny_account  = company.cny # 目前只扣除人民币账户
+          fee_rate  = company.fee # 取出该会员单位约定手续费分成比例
+          company_fee = fee_rate.factor_bid*fee
+          platform_fee  = fee - company_fee
+          change_balance_and_locked(company_fee, Account::ZERO)
+
+        end
+      end
     rescue ActiveRecord::StaleObjectError
       Rails.logger.info "Stale account##{account.id} found when create associated account version, retry."
       account = Account.find(account.id)
