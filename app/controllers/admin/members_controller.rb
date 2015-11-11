@@ -47,8 +47,8 @@ module Admin
       # 激活账户，如果是通过管理员后台注册的会员单位，目前需要创建密码重设
       @identity = Identity.find_by_email @member.email
       unless @identity
-        identity = Identity.new({email:@member.email,password:'test111111',password_confirmation:'test111111'})
-        identity.save
+        @identity = Identity.new({email:@member.email,password:'test111111',password_confirmation:'test111111'})
+        @identity.save
 
       end
       unless @member.authentications.find_by_uid @identity.uid

@@ -19,12 +19,14 @@ module Matching
 
     private
     # 符合哪些条件才是有效交易？
+    # 交易金额>0, 卖出价<=履约价格，买入价>=履约价格， 买入卖出最小量>=实际交易量
     def valid?
       return false if @ask.ord_type == 'limit' && @ask.price > @price
       return false if @bid.ord_type == 'limit' && @bid.price < @price
       @funds > ZERO && [@ask.volume, @bid.volume].min >= @volume
     end
 
+    # 价格走势，上升 or 下降
     def trend
       @price >= @market.latest_price ? 'up' : 'down'
     end

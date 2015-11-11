@@ -130,6 +130,7 @@ module Worker
     end
 
     # dump market orderbook
+    # 复制所有交易
     def on_usr2
       engines.each do |id, eng|
         dump_file = File.join('/', 'tmp', "market_orderbook_#{id}")

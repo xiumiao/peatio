@@ -17,6 +17,9 @@ class Member < ActiveRecord::Base
 
   has_one :id_document
   has_one :fee
+  has_one :cny, -> {
+              where(currency:1)
+          }, class_name: 'Account'
 
   has_many :authentications, dependent: :destroy
 
@@ -34,6 +37,8 @@ class Member < ActiveRecord::Base
   delegate :name,       to: :id_document, allow_nil: true
   delegate :full_name,  to: :id_document, allow_nil: true
   delegate :verified?,  to: :id_document, prefix: true, allow_nil: true
+  # 查看该会员的类型： 会员单位 or 交易商
+  delegate :employer?,    to: :id_document, allow_nil: true
 
   before_validation :sanitize, :generate_sn
 

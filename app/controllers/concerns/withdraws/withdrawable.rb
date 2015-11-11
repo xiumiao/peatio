@@ -9,7 +9,7 @@ module Withdraws
     def create
       @withdraw = model_kls.new(withdraw_params)
 
-      if two_factor_auth_verified?
+      if two_factor_auth_verified? || true # 跳过两段验证
         if @withdraw.save
           @withdraw.submit!
           render nothing: true
@@ -42,7 +42,7 @@ module Withdraws
     def withdraw_params
       params[:withdraw][:currency] = channel.currency
       params[:withdraw][:member_id] = current_user.id
-      params.require(:withdraw).permit(:fund_source_id, :member_id, :currency, :sum)
+      params.require(:withdraw).permit(:fund_source,:fund_source_id, :member_id, :currency, :sum)
     end
 
   end

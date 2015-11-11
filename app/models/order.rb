@@ -57,33 +57,35 @@ class Order < ActiveRecord::Base
     member.trigger('order', json)
   end
 
+  # 通过
   def strike(trade)
     raise "Cannot strike on cancelled or done order. id: #{id}, state: #{state}" unless state == Order::WAIT
-
+    # 数量， 总额
     real_sub, add = get_account_changes trade
-    real_fee      = add * fee
-    real_add      = add - real_fee
+    real_fee      = add * fee  # 费用的定义来自：markets.yml
+    real_add      = add - real_fee # 总额-手续费=实际到账户的人民币或BTC
 
+    # account解锁并变动金额+/- real_add
     hold_account.unlock_and_sub_funds \
       real_sub, locked: real_sub,
       reason: Account::STRIKE_SUB, ref: trade
 
     expect_account.plus_funds \
       real_add, fee: real_fee,
-      reason: Account::STRIKE_ADD, ref: trade
+      reason: Account::STRIKE_ADD, ref: trade # 110 增加的金额 = 总额 - 费用
 
-    self.volume         -= trade.volume
-    self.locked         -= real_sub
-    self.funds_received += add
-    self.trades_count   += 1
+    self.volume         -= trade.volume # 该order剩余数量（部分成交）= 该order总数量 - 实际成交量
+    self.locked         -= real_sub # 相应的被锁定的剩余数量 = 被锁定的总量 - 实际成交量
+    self.funds_received += add # 该订单已成交总量
+    self.trades_count   += 1  # 交易次数（怎么判断部分成交订单？ 交易次数不为0 AND 状态不为200
 
     if volume.zero?
-      self.state = Order::DONE
+      self.state = Order::DONE # 交易完成
 
       # unlock not used funds
       hold_account.unlock_funds locked,
         reason: Account::ORDER_FULLFILLED, ref: trade unless locked.zero?
-    elsif ord_type == 'market' && locked.zero?
+    elsif ord_type == 'market' && locked.zero? # 如果为市场价委托，并且锁定的数量为0则取消该订单
       # partially filled market order has run out its locked fund
       self.state = Order::CANCEL
     end

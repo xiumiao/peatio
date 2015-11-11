@@ -76,12 +76,13 @@ AMQPQueue.enqueue -> # 将每个订单进入队列 队列的定义： app/models
 daemon会启动相应的服务worker，文件位于 app/models/worker/matching.rb<br>
 <br>
 RabbitMQ会将消息发送给订阅了matching的customer<br>
-Worker::Matching.process -> # 根据类型，如submit来调用不同的服务<br>
+Worker::Matching.process -> # 根据类型（ask or bid or market)，如submit来调用不同的服务<br>
 Matching::OrderBookManager.build_order -><br>
 Worker::Matching.submit -><br>
 Matching::Engine.submit -><br>
 Matching::Engine.match -> # 反复match<br>
 每匹配成功一次，发送一条消息trade_executor<br>
+以下才是执行真正的数据库操作
 <br>
 Worker::TradeExecutor.process -><br>
 Matching::Executor.execute! -><br>
@@ -265,3 +266,28 @@ member应该是自属于的，has_many :members , 雇员和雇主的关系
 2015.11.10
 ======================
 和项目一起订单的daemon:matching会出问题，导致很多交易无法进行，气死我了
+手续费：交易手续费（买和卖），入金手续费，出金手续费
+withdraw： 提现（出金）
+deposit: 充值（入金）
+account_versions：显示所有币种账户的变动明细表
+order买单和卖单的状态：0-cancel, 100-wait,200-done
+trade的最后一笔成交价为当前价格，其中trend为走势，是卖方还是买方市场？
+worker:matching 再收到on_usr2信号时，会复制当前的红黑树（平衡二叉树）
+核心交易算法是使用gem：rbtree来实现的，底层是由c++实现
+market_orders:RBtree直接按照先后顺序成交
+按照价格组成红黑树，然后每个价格下面是按照时间顺序组成的数组
+
+如果价格相差不大，怎么成交
+会员单位：
+lixiumiao@qq.com
+test@danwei.com
+会员单位下的交易商
+lixiumiao@jsdttec.com
+test@jiaoyishang.com
+清除redis缓存：Rails.cache
+输入：redis-cli
+FLUSHALL
+清除全部消息队列：
+rabbitmqctl stop_app
+rabbitmqctl reset    # Be sure you really want to do this!
+rabbitmqctl start_app
