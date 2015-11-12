@@ -1,7 +1,7 @@
 module Private
   class IpoApplicantsController < ApplicationController
     before_action :set_ipo_applicant, only: [:show, :edit, :update, :destroy]
-    before_action :auth_member!
+    before_action :auth_member!, :auth_employer!
 
     # GET /ipo_applicants
     # GET /ipo_applicants.json

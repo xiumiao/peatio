@@ -65,8 +65,11 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
-  def is_employer?
-    root_path unless current_user.employer?
+  def auth_employer!
+    unless current_user.employer?
+      flash[:alert] = '只有会员单位才可以申请IPO!'
+      redirect_to settings_path
+    end
   end
   def two_factor_activated!
     if not current_user.two_factors.activated?

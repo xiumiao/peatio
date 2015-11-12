@@ -340,3 +340,5 @@ ipos
 
 ipo_numbers
 申请人ipo_id: ipo_id
+
+限制只有
