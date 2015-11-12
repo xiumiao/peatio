@@ -65,6 +65,9 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  def is_employer?
+    root_path unless current_user.employer?
+  end
   def two_factor_activated!
     if not current_user.two_factors.activated?
       redirect_to settings_path, alert: t('two_factors.auth.please_active_two_factor')

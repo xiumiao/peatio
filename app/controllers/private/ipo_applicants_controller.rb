@@ -1,6 +1,7 @@
 module Private
   class IpoApplicantsController < ApplicationController
     before_action :set_ipo_applicant, only: [:show, :edit, :update, :destroy]
+    before_action :auth_member!
 
     # GET /ipo_applicants
     # GET /ipo_applicants.json
@@ -26,7 +27,7 @@ module Private
     # POST /ipo_applicants.json
     def create
       @ipo_applicant = IpoApplicant.new(ipo_applicant_params)
-
+      @ipo_applicant.member = current_user
       respond_to do |format|
         if @ipo_applicant.save
           format.html { redirect_to @ipo_applicant, notice: 'Ipo applicant was successfully created.' }
@@ -70,7 +71,7 @@ module Private
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def ipo_applicant_params
-        params.require(:ipo_applicant).permit(:production, :base_unit, :issue_price, :total_stock, :ipo_count, :top_limit, :start_time, :end_time, :state, :member_id, :audit_id, :audit_time)
+        params.require(:ipo_applicant).permit(:production, :base_unit, :issue_price, :total_stock,  :top_limit, :start_time, :end_time)
       end
   end
 end

@@ -12,6 +12,19 @@
                 order: [:year,:month, :day],  label:'申购截止日期' %>
     <%= f.button :wrapped, '申请' %>
 <% end %>
-<%= content_for :pannel do %>
-    '申请IPO'
-<%end%>
+<style>
+    #ipo_applicant_start_time_1i,#ipo_applicant_start_time_2i,#ipo_applicant_start_time_3i,
+    #ipo_applicant_end_time_1i,#ipo_applicant_end_time_2i,#ipo_applicant_end_time_3i{
+        display:inline-block;
+
+    }
+    #ipo_applicant_start_time_1i,#ipo_applicant_end_time_1i {
+        width:20%;
+    }
+    #ipo_applicant_start_time_2i,#ipo_applicant_end_time_2i {
+        width:40%;
+    }
+    #ipo_applicant_start_time_3i,#ipo_applicant_end_time_3i {
+        width:38%;
+    }
+</style>
