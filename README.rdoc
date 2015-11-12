@@ -272,7 +272,7 @@ deposit: 充值（入金）
 account_versions：显示所有币种账户的变动明细表
 order买单和卖单的状态：0-cancel, 100-wait,200-done
 trade的最后一笔成交价为当前价格，其中trend为走势，是卖方还是买方市场？
-worker:matching 再收到on_usr2信号时，会复制当前的红黑树（平衡二叉树）
+worker:matching 再收到on_usr2信号时，会复制当前的红黑树
 核心交易算法是使用gem：rbtree来实现的，底层是由c++实现
 market_orders:RBtree直接按照先后顺序成交
 按照价格组成红黑树，然后每个价格下面是按照时间顺序组成的数组
@@ -291,3 +291,52 @@ FLUSHALL
 rabbitmqctl stop_app
 rabbitmqctl reset    # Be sure you really want to do this!
 rabbitmqctl start_app
+
+手续费(目前是卖出手手续费，应该是买入的人多出手续费）：
+1. 交易商的手续费，根据分成比例，在交易完成（状态：done）之后，打到交易商所属会员单位的账户上，并在
+账户变动明细表上添加一个金额变动（未完成）
+需要增加一个fun： fee=>6
+账户金额变动邮件：
+2. 会员单位的手续费处理目前同上，也是扣完之后返回到会员账户上，费率比例目前相同，未来可以在表fees中添加另外的费率
+3. 平台的手续费：统计所有账户变动fee的sum值，就可以计算出平台应拿到的费用
+
+1. 公告功能
+2. 开市，演示功能
+3. 节假日管理
+
+
+有效申购单位数量 = 发行总量（股）/1000
+实际申购有效单位数量 = 申购资金总额/（股票单价×1000）
+中签率 = 有效申购单位数量/实际申购有效单位数量
+1. 用户申购必须大于1个有效单位即（1000股）
+2. 用户有申购上限
+3. 股票发行价
+4. 申购时间区间
+5. 退还费用（T-3)
+6. 产品名称（如普洱茶）
+7. 产品单位（KG）
+8. 可以买卖的时间
+9.
+表格：ipo_applicants
+产品名称：production,
+产品基本单位：base_unit,
+产品发行价：issue_price
+产品发行总量：total_stock
+申购份数： ipo_count  = total_stock/1000
+用户申购上限：top_limit
+申购起始日期：start_time
+申购截止日期：end_time
+审核状态：state
+申请会员单位：member_id
+审核人员：audit_id
+审核时间： audit_time
+
+ipos
+产品id: pre_ipo_id
+申请人： member_id
+申请数量： amount
+中签数量： count
+中签状况: state
+
+ipo_numbers
+申请人ipo_id: ipo_id

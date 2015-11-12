@@ -16,7 +16,10 @@ class Account < ActiveRecord::Base
   WITHDRAW = :withdraw
   ZERO = 0.to_d
 
-  FUNS = {:unlock_funds => 1, :lock_funds => 2, :plus_funds => 3, :sub_funds => 4, :unlock_and_sub_funds => 5}
+  FUNS = {:unlock_funds => 1, :lock_funds => 2,
+          :plus_funds => 3, :sub_funds => 4,
+          :unlock_and_sub_funds => 5,
+          :plus_fee_funds=>6 } # 增加一中手续费
 
   belongs_to :member
   has_many :payment_addresses
@@ -54,6 +57,12 @@ class Account < ActiveRecord::Base
     change_balance_and_locked amount, 0
   end
 
+  #  增加一条手续费（估计暂时用不到）
+  def plus_fee_funds(amount, fee: ZERO, reason: nil, ref: nil)
+    (amount <= ZERO or fee > amount) and raise AccountError, "cannot add funds (amount: #{amount})"
+    change_balance_and_locked amount, 0
+  end
+
   def sub_funds(amount, fee: ZERO, reason: nil, ref: nil)
     (amount <= ZERO or amount > self.balance) and raise AccountError, "cannot subtract funds (amount: #{amount})"
     change_balance_and_locked -amount, 0
@@ -81,7 +90,6 @@ class Account < ActiveRecord::Base
       opts ||= {}
       fee = opts[:fee] || ZERO
       reason = opts[:reason] || Account::UNKNOWN
-
       attributes = { fun: fun,
                      fee: fee,
                      reason: reason,
@@ -101,30 +109,46 @@ class Account < ActiveRecord::Base
       attributes.merge! locked: locked, balance: balance
 
       AccountVersion.optimistically_lock_account_and_create!(account.balance, account.locked, attributes)
-      # 添加手续费转账功能()
 
+
+      # 添加手续费转账功能(转到交易商对应的会员单位账户下)
+      # 以下条件为： 账户增加 人民币 并且收费大于0
       if AccountVersion::REASON_CODES[attributes[:reason]] == AccountVersion::REASON_CODES[Account::STRIKE_ADD] \
                 and attributes[:fee] > 0 \
                   and attributes[:currency] == :cny
-        # if 该交易账户是 会员单位
-        #    不做处理，还是返回手续费
-        # elsif 该交易账户是 交易商
-        #  查找该账户的会员单位，按分成比例给该会员账户账上添加手续费
-        # else
-        # end
-        binding.remote_pry
-        if member.employer?
 
+
+        if account.member.employer? # 如果是会员单位交易的话
+          company = account.member.id_document.member
         else
-          fee  = attrs[:fee]
-          company = member.id_document.employer.member
-          cny_account  = company.cny # 目前只扣除人民币账户
-          fee_rate  = company.fee # 取出该会员单位约定手续费分成比例
-          company_fee = fee_rate.factor_bid*fee
-          platform_fee  = fee - company_fee
-          change_balance_and_locked(company_fee, Account::ZERO)
-
+          company = account.member.id_document.employer.member
         end
+        fee  = attributes[:fee]
+        cny_account  = company.cny # 目前只扣除人民币账户
+        fee_rate  = company.fee # 取出该会员单位约定手续费分成比例
+        company_fee = fee_rate.factor_bid*fee
+        platform_fee  = fee - company_fee
+        # 手续费转到会员单位，需在会员单位的账户上添加金额
+        # 然后在账户资金变动明细表(account_versions)上增加一个费用变动
+        cny_account.change_balance_and_locked(company_fee, Account::ZERO)
+        # 在这里发邮件不好吧？ 如果交易回滚，但是邮件已经发出就糟糕了
+
+        # 在账户变动表中增加一条，收费变更
+        company_attributes = {
+            :fun=>:plus_fee_funds, # 固定类型
+            :fee=> - company_fee, # 扣除平台手续费
+            :reason=>:strike_fee, # 类型
+            :amount=>account.amount, # 账户总额
+            :currency=>:cny, # 币种只能为人民币
+            :member_id=>company.id, # 会员单位
+            :account_id=>cny_account.id, # 人民币账户
+            :modifiable_id=>attributes[:modifiable_id], #  无需改动
+            :modifiable_type=>attributes[:modifiable_type], # 固定类型
+            :locked=>0.to_d,
+            :balance=> company_fee # 余额变动
+        }
+        binding.pry_remote
+        AccountVersion.optimistically_lock_account_and_create!(cny_account.balance, cny_account.locked, company_attributes)
       end
     rescue ActiveRecord::StaleObjectError
       Rails.logger.info "Stale account##{account.id} found when create associated account version, retry."

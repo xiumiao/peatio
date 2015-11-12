@@ -1,0 +1,1 @@
+json.extract! @ipo_applicant, :id, :production, :base_unit, :issue_price, :total_stock, :ipo_count, :top_limit, :start_time, :end_time, :state, :member_id, :audit_id, :audit_time, :created_at, :updated_at

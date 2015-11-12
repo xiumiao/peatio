@@ -101,7 +101,7 @@ table#setting_list.table
     - else
       p.text-ignore = '所属上级会员单位 :'
       span
-      h3= IdDocument.find(current_user.id_document.oraganization).name
+      h3= current_user.id_document.employer.member.name
     - current_user.tag_list.each do |key|
       span.label.label-info
         = member_tag(key)

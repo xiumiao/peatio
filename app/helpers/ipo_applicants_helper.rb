@@ -1,0 +1,2 @@
+module IpoApplicantsHelper
+end

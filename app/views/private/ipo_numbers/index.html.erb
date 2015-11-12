@@ -1,0 +1,27 @@
+<h1>Listing ipo_numbers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ipo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ipo_numbers.each do |ipo_number| %>
+      <tr>
+        <td><%= ipo_number.ipo_id %></td>
+        <td><%= link_to 'Show', ipo_number %></td>
+        <td><%= link_to 'Edit', edit_ipo_number_path(ipo_number) %></td>
+        <td><%= link_to 'Destroy', ipo_number, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ipo number', new_ipo_number_path %>

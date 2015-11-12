@@ -1,0 +1,37 @@
+<%= form_for(@ipo) do |f| %>
+  <% if @ipo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ipo.errors.count, "error") %> prohibited this ipo from being saved:</h2>
+
+      <ul>
+      <% @ipo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pre_ipo_id %><br>
+    <%= f.number_field :pre_ipo_id %>
+  </div>
+  <div class="field">
+    <%= f.label :member_id %><br>
+    <%= f.number_field :member_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :count %><br>
+    <%= f.number_field :count %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.number_field :state %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

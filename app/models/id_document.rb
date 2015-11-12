@@ -9,10 +9,11 @@ class IdDocument < ActiveRecord::Base
   has_one :id_bill_file, class_name: 'Asset::IdBillFile', as: :attachable
   accepts_nested_attributes_for :id_bill_file
 
+
   belongs_to :member,  autosave: true
+
   belongs_to :employer, :polymorphic => true
-  has_many  :members, as: :employer
-  before_create :test
+  has_many  :employee, as: :employer, class_name: 'IdDocument'
 
   validates_presence_of :name, :id_document_type, :id_document_number, :id_bill_type, allow_nil: true
   validates_uniqueness_of :member
@@ -51,7 +52,5 @@ class IdDocument < ActiveRecord::Base
 
   end
 
-  def test
-    puts 'fff'
-  end
+
 end

@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Production:</strong>
+  <%= @ipo_applicant.production %>
+</p>
+
+<p>
+  <strong>Base unit:</strong>
+  <%= @ipo_applicant.base_unit %>
+</p>
+
+<p>
+  <strong>Issue price:</strong>
+  <%= @ipo_applicant.issue_price %>
+</p>
+
+<p>
+  <strong>Total stock:</strong>
+  <%= @ipo_applicant.total_stock %>
+</p>
+
+<p>
+  <strong>Ipo count:</strong>
+  <%= @ipo_applicant.ipo_count %>
+</p>
+
+<p>
+  <strong>Top limit:</strong>
+  <%= @ipo_applicant.top_limit %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @ipo_applicant.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @ipo_applicant.end_time %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @ipo_applicant.state %>
+</p>
+
+<p>
+  <strong>Member:</strong>
+  <%= @ipo_applicant.member_id %>
+</p>
+
+<p>
+  <strong>Audit:</strong>
+  <%= @ipo_applicant.audit_id %>
+</p>
+
+<p>
+  <strong>Audit time:</strong>
+  <%= @ipo_applicant.audit_time %>
+</p>
+
+<%= link_to 'Edit', edit_ipo_applicant_path(@ipo_applicant) %> |
+<%= link_to 'Back', ipo_applicants_path %>

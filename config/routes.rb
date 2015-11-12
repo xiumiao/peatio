@@ -7,6 +7,8 @@ class ActionDispatch::Routing::Mapper
 end
 
 Peatio::Application.routes.draw do
+
+
   use_doorkeeper
 
   root 'welcome#index'
@@ -118,6 +120,10 @@ Peatio::Application.routes.draw do
       end
       resources :comments, only: [:create]
     end
+
+    resources :ipo_numbers
+    resources :ipos
+    resources :ipo_applicants
   end
 
   draw :admin

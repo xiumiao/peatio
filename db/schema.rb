@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109074220) do
+ActiveRecord::Schema.define(version: 20151112091508) do
 
   create_table "account_versions", force: true do |t|
     t.integer  "member_id"
@@ -206,6 +206,39 @@ ActiveRecord::Schema.define(version: 20151109074220) do
     t.boolean  "is_locked"
     t.datetime "locked_at"
     t.datetime "last_verify_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ipo_applicants", force: true do |t|
+    t.string   "production"
+    t.string   "base_unit"
+    t.decimal  "issue_price",           precision: 10, scale: 2
+    t.integer  "total_stock"
+    t.integer  "ipo_count"
+    t.integer  "top_limit"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "state",       limit: 2
+    t.integer  "member_id"
+    t.integer  "audit_id"
+    t.datetime "audit_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ipo_numbers", force: true do |t|
+    t.integer  "ipo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ipos", force: true do |t|
+    t.integer  "pre_ipo_id"
+    t.integer  "member_id"
+    t.integer  "amount"
+    t.integer  "count"
+    t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

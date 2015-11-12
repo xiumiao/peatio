@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre ipo:</strong>
+  <%= @ipo.pre_ipo_id %>
+</p>
+
+<p>
+  <strong>Member:</strong>
+  <%= @ipo.member_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @ipo.amount %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @ipo.count %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @ipo.state %>
+</p>
+
+<%= link_to 'Edit', edit_ipo_path(@ipo) %> |
+<%= link_to 'Back', ipos_path %>

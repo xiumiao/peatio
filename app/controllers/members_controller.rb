@@ -13,7 +13,11 @@ class MembersController < ApplicationController
   def update
     @member = current_user
     # 这里主要是更新选择会员单位，并同步一下费率
-    if @member.id_document.update_attributes(member_params)
+    @id_document = @member.id_document
+    oraganization_id = member_params[:oraganization] if member_params[:oraganization]
+    @id_document.employer = Member.find(oraganization_id).id_document
+    @id_document.oraganization = oraganization_id
+    if @id_document.save
       redirect_to settings_path
     else
       render :edit

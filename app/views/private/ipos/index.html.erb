@@ -1,0 +1,35 @@
+<h1>Listing ipos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pre ipo</th>
+      <th>Member</th>
+      <th>Amount</th>
+      <th>Count</th>
+      <th>State</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ipos.each do |ipo| %>
+      <tr>
+        <td><%= ipo.pre_ipo_id %></td>
+        <td><%= ipo.member_id %></td>
+        <td><%= ipo.amount %></td>
+        <td><%= ipo.count %></td>
+        <td><%= ipo.state %></td>
+        <td><%= link_to 'Show', ipo %></td>
+        <td><%= link_to 'Edit', edit_ipo_path(ipo) %></td>
+        <td><%= link_to 'Destroy', ipo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ipo', new_ipo_path %>
