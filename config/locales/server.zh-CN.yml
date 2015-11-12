@@ -980,6 +980,11 @@ zh-CN:
         new:
           title: 提交实名认证信息
           intro: 为配合国家相关法令条例，请您正确输入信息，进行身份认证，身份认证未完成将不能在网站进行任何操作。
+      ipo_applicants:
+          panel: 申请IPO
+          new:
+            title: 申请IPO
+            intro: 申请IPO时，你需要提供xx资料，通过平台审核之后才可以进行IPO。
     panels:
       balance: 用户账户信息
     verify:
