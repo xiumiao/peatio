@@ -22,6 +22,7 @@ class Member < ActiveRecord::Base
           }, class_name: 'Account'
 
   has_many :authentications, dependent: :destroy
+  has_many :ipo_applicants, dependent: :destroy
 
   scope :enabled, -> { where(disabled: false) }
   scope :members, ->(type) {

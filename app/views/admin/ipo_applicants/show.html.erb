@@ -34,10 +34,10 @@
 </p>
 
 <p>
-  <strong>State:</strong>
-  <%= @ipo_applicant.state %>
+  <strong>审核状态:</strong>
+  <%= @ipo_applicant.state_text %>
 </p>
 
 
-<%= link_to 'Edit', edit_ipo_applicant_path(@ipo_applicant) %> |
-<%= link_to 'Back', ipo_applicants_path %>
+
+<%= link_to 'Back', admin_ipo_applicants_path %>

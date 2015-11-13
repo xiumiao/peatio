@@ -19,3 +19,34 @@ header.text-center
           a href="#{market_path(current_market)}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.getstart")
           a href="#{funds_path}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.funds")
           a href="#{settings_path}" class="btn btn-primary btn-lg btn-block" role="button" = t("header.settings")
+
+    .panel.panel-primary
+      .panel-heading 以下商品正在开放申购
+      .panel-body
+        table.table.table-condensed
+          thead: tr
+            th 产品名称
+            th 基本单位
+            th.text-right 发行价
+            th.text-right 发行总数量
+            th.text-right 申购上限
+            th 申购起始时间
+            th 申购截止日期
+            th IPO发起人
+            th
+          tbody
+            - @ipo_applicants.each do |c|
+              tr
+                td: b = c[:production]
+                td = c[:base_unit]
+                td.text-right = c[:issue_price]
+                td.text-right = c[:total_stock]
+                td.text-right = c[:top_limit]
+                td = c[:start_time].to_s(:db)
+                td = c[:end_time].to_s(:db)
+                td = c.member.id_document.name
+                td = link_to '现在申购', admin_ipo_applicant_path(c), class: 'btn btn-success', method: 'DELETE'
+
+
+          .pull-right
+            = paginate @ipo_applicants

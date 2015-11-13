@@ -1,6 +1,50 @@
 .row
   .col-xs-24
     .panel.panel-primary
+      .panel-heading IPO申请处理
+      .panel-body
+        table.table.table-condensed
+          thead: tr
+            th 产品名称
+            th 基本单位
+            th.text-right 发行价
+            th.text-right 发行总数量
+            th.text-right 申购上限
+            th 申购起始时间
+            th 申购截止日期
+            th 申请人
+            th 状态
+            th.col-sm-3 操作
+
+          tbody
+            - @ipo_applicants.each do |c|
+              tr
+                td: b = c[:production]
+                td = c[:base_unit]
+                td.text-right = c[:issue_price]
+                td.text-right = c[:total_stock]
+                td.text-right = c[:top_limit]
+                td = c[:start_time].to_s(:db)
+                td = c[:end_time].to_s(:db)
+                td = c.member.display_name || c.member.email
+                - if c.state == 'rejected'
+                  td.btn.btn-warning = c.state_text
+                - elsif c.state == 'accepted'
+                  td.btn.btn-success = c.state_text
+                - else
+                  td = c.state_text
+                - if c.may_reject?
+                  td = link_to '拒绝', admin_ipo_applicant_path(c), class: 'btn btn-danger', method: 'DELETE'
+                - else
+                  td
+                - if c.may_accept?
+                  td = link_to '受理', admin_ipo_applicant_path(c), class: 'btn btn-primary', method: 'PATCH'
+                - else
+                  td
+                  td = link_to '查看详情', admin_ipo_applicant_path(c), class: 'btn btn-primary'
+.row
+  .col-xs-24
+    .panel.panel-primary
       .panel-heading 账户汇总
       .panel-body
         table.table.table-condensed

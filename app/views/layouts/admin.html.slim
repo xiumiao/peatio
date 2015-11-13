@@ -70,6 +70,10 @@ html lang="en"
                 li = link_to '全部订单', admin_statistic_orders_path
                 li = link_to '入金管理', admin_statistic_deposits_path
                 li = link_to '出金管理', admin_statistic_withdraws_path
+          - if can? :manage, IpoApplicant
+            li class = check_active(IpoApplicant)
+              = link_to t("layouts.admin.menus.sections.ipo_applicants"), admin_ipo_applicants_path
+
         ul.nav.navbar-nav.navbar-right
           li = link_to t('actions.back'), main_app.root_path
 

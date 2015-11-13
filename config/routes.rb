@@ -123,7 +123,7 @@ Peatio::Application.routes.draw do
 
     resources :ipo_numbers
     resources :ipos
-    resources :ipo_applicants
+    resources :ipo_applicants, only: [:index, :new, :show, :update, :edit]
   end
 
   draw :admin

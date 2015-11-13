@@ -21,6 +21,8 @@ namespace :admin do
     resources :two_factors, only: [:destroy]
   end
 
+  resources :ipo_applicants, only: [:index,:show,:update,:destroy]
+
   namespace :deposits do
     Deposit.descendants.each do |d|
       resources d.resource_name

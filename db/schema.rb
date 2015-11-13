@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112091508) do
+ActiveRecord::Schema.define(version: 20151113023802) do
 
   create_table "account_versions", force: true do |t|
     t.integer  "member_id"
@@ -213,13 +213,13 @@ ActiveRecord::Schema.define(version: 20151112091508) do
   create_table "ipo_applicants", force: true do |t|
     t.string   "production"
     t.string   "base_unit"
-    t.decimal  "issue_price",           precision: 10, scale: 2
+    t.decimal  "issue_price", precision: 10, scale: 2
     t.integer  "total_stock"
     t.integer  "ipo_count"
     t.integer  "top_limit"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer  "state",       limit: 2
+    t.string   "state"
     t.integer  "member_id"
     t.integer  "audit_id"
     t.datetime "audit_time"

@@ -22,6 +22,13 @@ module Admin
         can :menu, Withdraw
         can :manage, ::Withdraws::Bank
         can :manage, ::Withdraws::Satoshi
+
+        can :manage, IpoApplicant
+
+      elsif user.employer?
+
+        can :create, IpoApplicant
+
       end
 
     end

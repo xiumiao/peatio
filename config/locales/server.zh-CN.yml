@@ -985,6 +985,9 @@ zh-CN:
           new:
             title: 申请IPO
             intro: 申请IPO时，你需要提供xx资料，通过平台审核之后才可以进行IPO。
+          show:
+            tilte: IPO申请资料
+            intro: 状态
     panels:
       balance: 用户账户信息
     verify:
@@ -1318,6 +1321,15 @@ zh-CN:
       state_and_actions: 状态/操作
       currency_obj_key_text: 币种
   enumerize:
+    ipo_applicant:
+      state:
+        submitted: 受理中
+        submitting: 待提交
+        accepted: 已通过
+        cancelled: 已撤销
+        rejected: 已驳回
+        checked: 已通过
+        warning: 异常
     account_version:
       reason:
         fix: 系统修正
@@ -1670,6 +1682,7 @@ zh-CN:
     admin:
       menus:
         sections:
+          ipo_applicants: IPO管理
           members: 用户管理
           deposits: 充值通道
           sites_statistics: 数据统计
