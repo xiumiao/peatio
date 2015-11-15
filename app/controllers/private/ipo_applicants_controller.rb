@@ -7,7 +7,7 @@ module Private
     # GET /ipo_applicants
     # GET /ipo_applicants.json
     def index
-      @ipo_applicants = IpoApplicant.need_audit
+      @ipo_applicants = IpoApplicant.owner(current_user).page(params[:page])
     end
 
     # GET /ipo_applicants/1

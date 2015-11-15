@@ -46,6 +46,7 @@ class IpoApplicant < ActiveRecord::Base
   end
 
   scope :need_audit, ->{ where state:[ :submitted,:accepted]}
+  scope :owner, ->(current_user) { where member_id: current_user.id}
   scope :approved, ->{ where state:[:accepted]}
 
   def update_auditor(current_user,*args)

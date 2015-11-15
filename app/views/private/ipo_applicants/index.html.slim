@@ -1,0 +1,25 @@
+- content_for :frame do
+  .panel.panel-default#trades
+    .panel-body
+      .col-xs-24
+        table.table.table-condensed.table-striped
+          thead: tr
+            th  产品名称
+            th  基本单位
+            th  发行价
+            th  发行总数量
+            th  申购上限
+            th  申购起始日期
+            th  申购截止日期
+          tbody.list
+          = @ipo_applicants.each do |ipo|
+            tr
+              td = ipo.production
+              td = ipo.base_unit
+              td = ipo.issue_price
+              td = ipo.total_stock
+              td = ipo.top_limit
+              td = ipo.start_time
+              td = ipo.end_time
+        .pull-right
+          = paginate @ipo_applicants
