@@ -12,14 +12,17 @@ class AccountVersion < ActiveRecord::Base
     Account::STRIKE_FEE => 100, # 交易费
     Account::STRIKE_ADD => 110, # 增加(人民币或BTC)
     Account::STRIKE_SUB => 120, # 减少(人民币或BTC)
-    Account::STRIKE_UNLOCK => 130, # 锁定
+    Account::STRIKE_UNLOCK => 130, # 解锁
     Account::ORDER_SUBMIT => 600, # 订单提交（买入BTC，扣除账户对应的人民币)？
     Account::ORDER_CANCEL => 610, # 订单撤销
     Account::ORDER_FULLFILLED => 620, # 充值记录
     Account::WITHDRAW_LOCK => 800, # 提现锁定
     Account::WITHDRAW_UNLOCK => 810, # 提现解锁
     Account::DEPOSIT => 1000, # 入金（充值）
-    Account::WITHDRAW => 2000 } # 出金（提现）
+    Account::WITHDRAW => 2000,  # 出金（提现）
+    Account::IPO_LOCK => 900,  # IPO申购资金锁定
+    Account::IPO_UNLOCK => 910 # IPO申购资金解锁
+    }
   enumerize :reason, in: REASON_CODES, scope: true
 
   belongs_to :account

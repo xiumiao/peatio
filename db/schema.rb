@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113023802) do
+ActiveRecord::Schema.define(version: 20151116063942) do
 
   create_table "account_versions", force: true do |t|
     t.integer  "member_id"
@@ -228,13 +228,11 @@ ActiveRecord::Schema.define(version: 20151113023802) do
   end
 
   create_table "ipo_numbers", force: true do |t|
-    t.integer  "ipo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "ipo_id"
   end
 
   create_table "ipos", force: true do |t|
-    t.integer  "pre_ipo_id"
+    t.integer  "ipo_applicant_id"
     t.integer  "member_id"
     t.integer  "amount"
     t.integer  "count"

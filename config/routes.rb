@@ -121,9 +121,11 @@ Peatio::Application.routes.draw do
       resources :comments, only: [:create]
     end
 
-    resources :ipo_numbers
-    resources :ipos
-    resources :ipo_applicants, only: [:index, :new, :show, :update, :edit]
+    resources :ipo_applicants, only: [:index, :new, :show, :update, :edit, :create] do
+      member do
+        match :subscribe, via:[:get,:post]
+      end
+    end
   end
 
   draw :admin

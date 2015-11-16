@@ -11,6 +11,13 @@ module Admin
     # GET /ipo_applicants/1
     # GET /ipo_applicants/1.json
     def show
+      @ipos = @ipo_applicant.ipos
+      if @ipos.sum(:amount) > 0
+        @success_rate = (@ipo_applicant.total_stock.to_f/@ipos.sum(:amount)*100).round
+      else
+        @success_rate = 'N/A'
+      end
+
 
     end
 

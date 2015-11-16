@@ -1,0 +1,100 @@
+.row
+  .col-xs-6.text-right
+  .col-xs-10
+    = render 'shared/flash'
+.row
+  .col-xs-6.text-right
+    label  产品名称
+  .col-xs-18
+    span = @ipo_applicant.production
+.row
+  .col-xs-6.text-right
+    label  基本单位
+  .col-xs-18
+    span = @ipo_applicant.base_unit
+.row
+  .col-xs-6.text-right
+    label  发行价
+  .col-xs-18
+    span = @ipo_applicant.issue_price
+.row
+  .col-xs-6.text-right
+    label  发行总数量
+  .col-xs-18
+    span = @ipo_applicant.total_stock
+.row
+  .col-xs-6.text-right
+    label  申购上限
+  .col-xs-18
+    span = @ipo_applicant.top_limit
+.row
+  .col-xs-6.text-right
+    label  申购起始时间
+  .col-xs-18
+    span = @ipo_applicant.start_time
+.row
+  .col-xs-6.text-right
+    label  申购截止日期
+  .col-xs-18
+    span = @ipo_applicant.end_time
+.row
+  .col-xs-6.text-right
+    label  状态
+  .col-xs-18
+    span = @ipo_applicant.state
+hr.split
+.row
+  .col-xs-2
+    label 已申购总量
+  .col-xs-4
+    label 已申购总人数
+  .col-xs-4
+    label 当前中签率(%)
+  .col-xs-4
+    label 统计时间
+  .col-xs-2
+    label 操作
+.row
+  .col-xs-2
+    span = @ipos.sum(:amount)
+  .col-xs-4
+    span = @ipos.size
+  .col-xs-4
+    span = @success_rate
+  .col-xs-4
+    span = Time.now
+  .col-xs-2
+    - if @ipo_applicant.end_time > Time.now
+      =link_to "结束申购", '', class:'btn btn-primary',confirm:'确定要提前结束申购吗？'
+    - elsif @ipo_applicant.may_check?
+      =link_to "抽签", '', html:{class:'btn btn-primary'},confirm:'确定现在抽签吗？'
+    - else
+      span.btn.btn-primary IPO已结束
+
+hr.split
+.row
+  .col-xs-24
+    .panel.panel-primary
+      .panel-heading 已申购列表
+      .panel-body
+        table.table.table-condensed
+          thead: tr
+            th #
+            th 会员类型
+            th 申购人
+            th 邮箱
+            th 联系电话
+            th 申购数量
+            th 中签数量
+            th 申请时间
+          tbody
+            - @ipos.each_with_index do |ipo, no|
+              tr
+                td = no+1
+                td = ipo.member.employer? ? '会员单位':'交易商'
+                td: b = ipo.member.id_document.name
+                td = ipo.member.email
+                td = ipo.member.id_document.telphone
+                td = ipo.amount
+                td = ipo.count || 'N/A'
+                td = ipo.created_at

@@ -12,6 +12,8 @@ class Account < ActiveRecord::Base
   ORDER_FULLFILLED = :order_fullfilled
   WITHDRAW_LOCK = :withdraw_lock
   WITHDRAW_UNLOCK = :withdraw_unlock
+  IPO_LOCK = :ipo_lock
+  IPO_UNLOCK = :ipo_unlock
   DEPOSIT = :deposit
   WITHDRAW = :withdraw
   ZERO = 0.to_d
@@ -19,7 +21,9 @@ class Account < ActiveRecord::Base
   FUNS = {:unlock_funds => 1, :lock_funds => 2,
           :plus_funds => 3, :sub_funds => 4,
           :unlock_and_sub_funds => 5,
-          :plus_fee_funds=>6 } # 增加一中手续费
+          :plus_fee_funds=>6, # 增加一中手续费
+          :ipo_lock_funds =>7 # 增加IPO资金锁定
+          }
 
   belongs_to :member
   has_many :payment_addresses
@@ -67,6 +71,11 @@ class Account < ActiveRecord::Base
     (amount <= ZERO or amount > self.balance) and raise AccountError, "cannot subtract funds (amount: #{amount})"
     change_balance_and_locked -amount, 0
   end
+  # ipo申购资金锁定
+  def ipo_lock_funds(amount, fee: ZERO, reason: nil, ref: nil)
+    (amount <= ZERO or amount > self.balance) and raise AccountError, "cannot lock funds (amount: #{amount})"
+    change_balance_and_locked -amount, amount
+  end
 
   def lock_funds(amount, reason: nil, ref: nil)
     (amount <= ZERO or amount > self.balance) and raise AccountError, "cannot lock funds (amount: #{amount})"
@@ -112,7 +121,7 @@ class Account < ActiveRecord::Base
 
 
       # 添加手续费转账功能(转到交易商对应的会员单位账户下)
-      # 以下条件为： 账户增加 人民币 并且收费大于0
+      # 以下条件为： 账户金额增加 AND 币种为人民币 AND 并且收费大于0
       if AccountVersion::REASON_CODES[attributes[:reason]] == AccountVersion::REASON_CODES[Account::STRIKE_ADD] \
                 and attributes[:fee] > 0 \
                   and attributes[:currency] == :cny
@@ -147,7 +156,6 @@ class Account < ActiveRecord::Base
             :locked=>0.to_d,
             :balance=> company_fee # 余额变动
         }
-        binding.pry_remote
         AccountVersion.optimistically_lock_account_and_create!(cny_account.balance, cny_account.locked, company_attributes)
       end
     rescue ActiveRecord::StaleObjectError
@@ -166,6 +174,7 @@ class Account < ActiveRecord::Base
     when :plus_funds then [ZERO, amount]
     when :lock_funds then [amount, ZERO - amount]
     when :unlock_funds then [ZERO - amount, amount]
+    when :ipo_lock_funds then [amount, ZERO - amount]
     when :unlock_and_sub_funds
       locked = ZERO - opts[:locked]
       balance = opts[:locked] - amount

@@ -1,0 +1,68 @@
+= content_for :frame do
+    .row
+      .col-xs-6.text-right
+      .col-xs-10
+        = render 'shared/flash'
+    .row
+      .col-xs-6.text-right
+        label  产品名称
+      .col-xs-18
+        span = @ipo_applicant.production
+    .row
+      .col-xs-6.text-right
+        label  基本单位
+      .col-xs-18
+        span = @ipo_applicant.base_unit
+    .row
+      .col-xs-6.text-right
+        label  发行价
+      .col-xs-18
+        span = @ipo_applicant.issue_price
+    .row
+      .col-xs-6.text-right
+        label  发行总数量
+      .col-xs-18
+        span = @ipo_applicant.total_stock
+    .row
+      .col-xs-6.text-right
+        label  申购上限
+      .col-xs-18
+        span = @ipo_applicant.top_limit
+    .row
+      .col-xs-6.text-right
+        label  申购起始时间
+      .col-xs-18
+        span = @ipo_applicant.start_time
+    .row
+      .col-xs-6.text-right
+        label  申购截止日期
+      .col-xs-18
+        span = @ipo_applicant.end_time
+    .row
+      .col-xs-6.text-right
+        label  状态
+      .col-xs-18
+        span = @ipo_applicant.state
+
+
+    hr.split
+    = form_tag subscribe_ipo_applicant_path(@ipo_applicant)
+    .row
+      .col-xs-5.text-right
+      .col-xs-4
+        - if @ipo_applicant.has_subscribe? current_user
+          span.btn.btn-primary 已申购
+        - else
+          .col-xs-6.text-right
+            .lable 账户余额
+          .col-xs-18
+            = @cny_account.balance
+          .col-xs-6.text-right
+            .lable 锁定金额
+          .col-xs-18
+            = @cny_account.locked
+          .row
+            input.form-control type="text" name="amount" placeholder='填写申购数量'
+          .row
+            .col-xs-18
+              input.btn.btn-primary type="submit" value="申购"

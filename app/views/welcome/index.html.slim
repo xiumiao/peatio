@@ -37,7 +37,7 @@ header.text-center
           tbody
             - @ipo_applicants.each do |c|
               tr
-                td: b = c[:production]
+                td = c[:production]
                 td = c[:base_unit]
                 td.text-right = c[:issue_price]
                 td.text-right = c[:total_stock]
@@ -45,7 +45,7 @@ header.text-center
                 td = c[:start_time].to_s(:db)
                 td = c[:end_time].to_s(:db)
                 td = c.member.id_document.name
-                td = link_to '现在申购', admin_ipo_applicant_path(c), class: 'btn btn-success', method: 'DELETE'
+                td = link_to '现在申购', subscribe_ipo_applicant_path(c), class: 'btn btn-success'
 
 
           .pull-right

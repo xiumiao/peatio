@@ -1,6 +1,8 @@
 class IpoApplicant < ActiveRecord::Base
   belongs_to :member
   belongs_to :auditor , class_name:'Member', foreign_key: :audit_id
+  has_many :ipos
+  has_many :ipo_numbers, through: :ipos
 
   extend Enumerize
 
@@ -47,7 +49,15 @@ class IpoApplicant < ActiveRecord::Base
 
   scope :need_audit, ->{ where state:[ :submitted,:accepted]}
   scope :owner, ->(current_user) { where member_id: current_user.id}
-  scope :approved, ->{ where state:[:accepted]}
+  scope :approved, ->{ where(['state="accepted" and start_time <= ? and end_time >= ?', Time.now, Time.now])}
+
+  def approved?
+    self.class.approved.include? self
+  end
+
+  def has_subscribe? member
+    ipos.map(&:member).include? member
+  end
 
   def update_auditor(current_user,*args)
     update({audit_id: current_user.id,audit_time:Time.now})
