@@ -63,6 +63,11 @@ class IpoApplicant < ActiveRecord::Base
     update({audit_id: current_user.id,audit_time:Time.now})
   end
 
+  # 总共募集资金
+  def collect_amount
+    total_stock*issue_price
+  end
+
   def send_email
     # case state
     #   when 'submitted'
