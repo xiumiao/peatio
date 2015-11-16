@@ -1,6 +1,6 @@
 - id: puercny
   code: 1
-  name: Puer/CNY      # default name
+  name: 普洱茶      # default name
   base_unit: kg
   quote_unit: cny
   #price_group_fixed: 1 # aggregate price levels in orderbook
@@ -11,7 +11,7 @@
   #visible: false     # default to true
 - id: btccny
   code: 3
-  name: BTC/CNY      # default name
+  name: 比特币      # default name
   base_unit: btc
   quote_unit: cny
   #price_group_fixed: 1 # aggregate price levels in orderbook
@@ -21,7 +21,7 @@
   #visible: false     # default to true
 - id: tong
   code: 2
-  name: 铜/CNY      # default name
+  name: 铜      # default name
   base_unit: tong
   quote_unit: cny
   #price_group_fixed: 1 # aggregate price levels in orderbook

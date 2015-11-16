@@ -6,7 +6,7 @@
         - @market_groups.each do |name|
           li: a data-name=name href="javascript:;" = t(".#{name}_html")
   #market_list
-    .panel.panel-default
+    .panel.panel-default[style="width:280px"]
       .panel-body.panel-body-head
         table.table
           thead: tr
@@ -19,9 +19,9 @@
           tbody
             - @markets.each do |market|
               tr.market id="market-list-#{market.id}" class="quote-#{market.quote_unit}" data-market=market.id
-                td.col-xs-4.name
+                td.col-xs-8.name
                   = link_to market.name, market_path(market)
-                td.col-xs-15.price
+                td.col-xs-11.price
                   = Global[market.id].ticker[:last]
                 td.col-xs-5.change
                   | +0.00%

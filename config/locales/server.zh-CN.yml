@@ -765,7 +765,7 @@ zh-CN:
         trades: <v>委</v><v>单</v><v>成</v><v>交</v>
         chat: 聊天频道
       market_list:
-        all: 全部交易对
+        all: 产品
         all_html: "<i class='fa fa-check'></i><span>全部交易对</span>"
         cny_html: "<i class='fa fa-check'></i><span>CNY交易对</span>"
         btc_html: "<i class='fa fa-check'></i><span>BTC交易对</span>"
