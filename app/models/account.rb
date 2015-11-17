@@ -22,7 +22,8 @@ class Account < ActiveRecord::Base
           :plus_funds => 3, :sub_funds => 4,
           :unlock_and_sub_funds => 5,
           :plus_fee_funds=>6, # 增加一中手续费
-          :ipo_lock_funds =>7 # 增加IPO资金锁定
+          :ipo_lock_funds =>7, # 增加IPO资金锁定
+          :ipo_unlock_funds => 8
           }
 
   belongs_to :member
@@ -83,6 +84,11 @@ class Account < ActiveRecord::Base
   end
 
   def unlock_funds(amount, reason: nil, ref: nil)
+    (amount <= ZERO or amount > self.locked) and raise AccountError, "cannot unlock funds (amount: #{amount})"
+    change_balance_and_locked amount, -amount
+  end
+  # ipo申购资金解锁
+  def ipo_unlock_funds(amount, reason: nil, ref: nil)
     (amount <= ZERO or amount > self.locked) and raise AccountError, "cannot unlock funds (amount: #{amount})"
     change_balance_and_locked amount, -amount
   end
@@ -174,6 +180,7 @@ class Account < ActiveRecord::Base
     when :plus_funds then [ZERO, amount]
     when :lock_funds then [amount, ZERO - amount]
     when :unlock_funds then [ZERO - amount, amount]
+    when :ipo_unlock_funds then [ZERO - amount, amount]
     when :ipo_lock_funds then [amount, ZERO - amount]
     when :unlock_and_sub_funds
       locked = ZERO - opts[:locked]

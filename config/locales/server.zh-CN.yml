@@ -428,11 +428,12 @@ zh-CN:
     statistic_deposits_grid:
       columns:
         member: 用户
-        tx_id: 交易号
+        txid: 交易号
         amount: 金额
         currency: 币种
         created_at: 时间
         state_text: 状态
+        aasm_state_text: 状态
       filters:
         currency: 币种
         state: 状态
@@ -452,7 +453,7 @@ zh-CN:
     bank:
       key: 银行转账
       title: 银行转账充值
-      intro: 通过银行转账的方式，从您的银行账户充值人民币到您的貔貅账户。
+      intro: 通过银行转账的方式，从您的银行账户充值人民币到您的交易系统账户。
       latency: 10 分钟到账
       transfer: 人工处理
       go: 立即充值

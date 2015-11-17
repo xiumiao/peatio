@@ -21,7 +21,12 @@ namespace :admin do
     resources :two_factors, only: [:destroy]
   end
 
-  resources :ipo_applicants, only: [:index,:show,:update,:destroy]
+  resources :ipo_applicants, only: [:index,:show,:update,:destroy] do
+    member do
+     post :end_applicant
+    end
+
+  end
 
   namespace :deposits do
     Deposit.descendants.each do |d|

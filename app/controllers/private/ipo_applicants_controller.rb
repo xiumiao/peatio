@@ -114,7 +114,7 @@ module Private
         ipo.amount = amount
         @ipo_applicant.ipos  << ipo
         @ipo_applicant.transaction do
-          @cny_account.ipo_lock_funds(@ipo_applicant.issue_price*amount, fee: 0.to_d, reason: Account::IPO_LOCK, ref: @ipo_applicant)
+          @cny_account.ipo_lock_funds(@ipo_applicant.issue_price*amount, fee: 0.to_d, reason: Account::IPO_LOCK, ref: @ipo)
           if @ipo_applicant.save
             redirect_to :back
           end

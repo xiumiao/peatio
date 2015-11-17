@@ -32,7 +32,7 @@
                 - elsif c.state == 'accepted'
                   td.btn.btn-success = c.state_text
                 - else
-                  td = c.state_text
+                  td.btn.btn-success = c.state_text
                 - if c.may_reject?
                   td = link_to '拒绝', admin_ipo_applicant_path(c), class: 'btn btn-danger', method: 'DELETE'
                 - else

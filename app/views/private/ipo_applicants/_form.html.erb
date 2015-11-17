@@ -4,12 +4,8 @@
     <%= f.input :issue_price, label:'发行价' %>
     <%= f.input :total_stock, label:'发行总数量' %>
     <%= f.input :top_limit, label:'申购上限' %>
-    <%= f.input :start_time,as: :date, start_year: Date.today.year,
-                end_year: Date.today.year + 10,
-                order: [:year,:month, :day],label:'申购起始时间' %>
-    <%= f.input :end_time,as: :date,start_year: Date.today.year,
-                end_year: Date.today.year + 10,
-                order: [:year,:month, :day],  label:'申购截止日期' %>
+    <%= f.input :start_time,as: :string,  label:'申购起始时间' %>
+    <%= f.input :end_time,as: :string, label:'申购截止日期' %>
     <%= f.button :wrapped, '申请' %>
 <% end %>
 <style>
@@ -28,3 +24,17 @@
         width:38%;
     }
 </style>
+<%=content_for :scripts do %>
+ <%=   javascript_include_tag "bootstrap-datepicker.min", media: "all" %>
+ <%=   javascript_include_tag "bootstrap-datepicker.zh-CN.min", media: "all" %>
+ <script>
+   $(document).ready(function(){
+
+       $("#ipo_applicant_start_time,#ipo_applicant_end_time").datepicker({
+           format: 'yyyy-mm-dd',
+           language: 'zh-CN',
+           autoclose:true
+       });
+   });
+ </script>
+<%end%>

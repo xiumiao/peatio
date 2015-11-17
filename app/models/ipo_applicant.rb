@@ -3,6 +3,7 @@ class IpoApplicant < ActiveRecord::Base
   belongs_to :auditor , class_name:'Member', foreign_key: :audit_id
   has_many :ipos
   has_many :ipo_numbers, through: :ipos
+  has_many :account_versions, as: :modifiable
 
   extend Enumerize
 
@@ -14,7 +15,7 @@ class IpoApplicant < ActiveRecord::Base
   enumerize :state, in: STATES, scope: true
 
   aasm :column =>'state', :whiny_transitions => false do
-    state :submitting, initial: true #, before_enter: :set_fee
+    state :submitting, initial: true , before_enter: :calc_ipo_count
     state :cancelled
     state :submitted
     state :rejected
@@ -66,6 +67,11 @@ class IpoApplicant < ActiveRecord::Base
   # 总共募集资金
   def collect_amount
     total_stock*issue_price
+  end
+
+  # 1000股为一个申购单位
+  def calc_ipo_count
+    self.ipo_count= total_stock/1000
   end
 
   def send_email

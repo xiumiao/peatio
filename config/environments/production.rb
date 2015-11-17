@@ -62,7 +62,7 @@ Peatio::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w( funds.js market.js market.css admin.js admin.css html5.js api_v2.css api_v2.js .svg .eot .woff .ttf )
+  config.assets.precompile += %w( funds.js market.js market.css admin.js admin.css html5.js api_v2.css api_v2.js bootstrap-datepicker.css .svg .eot .woff .ttf )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -92,6 +92,6 @@ Peatio::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
   config.active_record.default_timezone = :local
-
-  config.middleware.insert_before Rack::Runtime, Middleware::Security
+  # 暂时不适用HOST域名跳转
+  # config.middleware.insert_before Rack::Runtime, Middleware::Security
 end

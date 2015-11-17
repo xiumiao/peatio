@@ -1,9 +1,5 @@
 .row
   .col-xs-6.text-right
-  .col-xs-10
-    = render 'shared/flash'
-.row
-  .col-xs-6.text-right
     label  产品名称
   .col-xs-18
     span = @ipo_applicant.production
@@ -19,9 +15,14 @@
     span = @ipo_applicant.issue_price
 .row
   .col-xs-6.text-right
-    label  发行总数量
+    label  发行总股份
   .col-xs-18
     span = @ipo_applicant.total_stock
+.row
+  .col-xs-6.text-right
+    label  申购总有效单位
+  .col-xs-18
+    span = @ipo_applicant.ipo_count
 .row
   .col-xs-6.text-right
     label  申购上限
@@ -49,6 +50,8 @@ hr.split
   .col-xs-4
     label 已申购总人数
   .col-xs-4
+    label 已锁定资金
+  .col-xs-4
     label 当前中签率(%)
   .col-xs-4
     label 统计时间
@@ -60,14 +63,14 @@ hr.split
   .col-xs-4
     span = @ipos.size
   .col-xs-4
+    span = @ipo_applicant.account_versions.sum(:locked)
+  .col-xs-4
     span = @success_rate
   .col-xs-4
     span = Time.now
   .col-xs-2
-    - if @ipo_applicant.end_time > Time.now
-      =link_to "结束申购", '', class:'btn btn-primary',confirm:'确定要提前结束申购吗？'
-    - elsif @ipo_applicant.may_check?
-      =link_to "抽签", '', html:{class:'btn btn-primary'},confirm:'确定现在抽签吗？'
+    - if @ipo_applicant.may_check?
+      =link_to "抽签", end_applicant_admin_ipo_applicant_path(@ipo_applicant),method: 'post', class:'btn btn-primary',confirm:'确定现在抽签吗？'
     - else
       span.btn.btn-primary IPO已结束
 
