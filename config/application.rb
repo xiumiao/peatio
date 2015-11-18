@@ -49,8 +49,8 @@ module Peatio
     # Observer configuration
     config.active_record.observers = :transfer_observer
     # 让rails4以上的版本支持在production模式下访问静态资源
-    config.assets.enabled = true
-    config.serve_static_assets = true
-    config.action_dispatch.x_sendfile_header = nil
+    # config.assets.enabled = true
+    # config.serve_static_assets = true
+    # config.action_dispatch.x_sendfile_header = nil
   end
 end
