@@ -49,7 +49,6 @@ queue:
 binding:
   matching:
     queue: matching
-    # clean_start flag 重启启动时清空所有的消息，因为消息可以持久化，所以再次启动时，还有消息存在的清空怎么处理
     clean_start: true
   slave_book:
     queue: slave_book

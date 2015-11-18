@@ -20,6 +20,7 @@ ch = conn.create_channel
 # 例如： $0 = 'peatio:amqp:notification'
 # 此时 id = notification
 id = $0.split(':')[2]
+# 预取个数 只有 trade_executor order_processor
 prefetch = AMQPConfig.channel(id)[:prefetch] || 0
 ch.prefetch(prefetch) if prefetch > 0
 logger.info "Connected to AMQP broker (prefetch: #{prefetch > 0 ? prefetch : 'default'})"
@@ -34,11 +35,19 @@ Signal.trap("INT",  &terminate)
 Signal.trap("TERM", &terminate)
 
 workers = []
+# eg. {dir_mode:, script:
+# id = matching
 ARGV.each do |id|
+  # 找到该daemon对应的worker,每个daemon对应一个worker
   worker = AMQPConfig.binding_worker(id)
-  # 绑定
+  # 返回数组 eg. [name=peatio.matching,setting={durable:true}]
   queue  = ch.queue *AMQPConfig.binding_queue(id)
   # id name eg. notification
+  # 如果该id有exchange路由,返回[type,name]
+  # exchange:
+  #     trade:
+  #     name: peatio.trade
+  #     type: headers
   if args = AMQPConfig.binding_exchange(id)
     x = ch.send *args
 

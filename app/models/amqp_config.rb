@@ -43,6 +43,8 @@ class AMQPConfig
       data[:binding][id][:topics].split(',')
     end
 
+    # eg. id=notification
+    # 只有 trade_executor order_processor 其他返回空{}
     def channel(id)
       (data[:channel] && data[:channel][id]) || {}
     end
