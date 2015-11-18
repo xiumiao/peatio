@@ -4,6 +4,7 @@ class IpoApplicant < ActiveRecord::Base
   has_many :ipos
   has_many :ipo_numbers, through: :ipos
   has_many :account_versions, as: :modifiable
+  before_save :calc_ipo_count
 
   extend Enumerize
 
