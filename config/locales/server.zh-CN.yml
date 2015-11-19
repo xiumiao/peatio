@@ -292,7 +292,13 @@ zh-CN:
       doge: DOGE
       pts: PTS
       ltc: LTC
+      puer: 普洱
   currency:
+    puer:
+      key: PUER
+      code: 普洱
+      name: 普洱
+      format: '0,0.00'
     satoshi:
       key: BTC
       code: BTC
