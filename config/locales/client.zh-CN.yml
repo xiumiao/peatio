@@ -81,7 +81,7 @@ zh-CN:
         title: 历史记录
         identification: 转账识别码
         time: 时间
-        txid: 交易哈希
+        txid: 入金流水号
         confirmations: 确认数
         from: 充值银行
         amount: 充值金额

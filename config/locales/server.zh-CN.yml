@@ -175,7 +175,7 @@ zh-CN:
         fund_source: 充值账号
       deposits/satoshi:
         created_at: 时间
-        txid: 交易哈希
+        txid: 入金流水号
         amount: 充值数量
         confirmations: 确认数
         aasm_state_text: 状态
@@ -529,7 +529,7 @@ zh-CN:
         fee: 手续费
         currency: 货币
         amount: 金额
-        txid: 交易哈希
+        txid: 入金流水号
       orders:
         order_history: 委托记录
         id: ID

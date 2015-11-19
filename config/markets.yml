@@ -1,14 +1,14 @@
-- id: puercny
-  code: 1
-  name: 普洱茶      # default name
-  base_unit: kg
-  quote_unit: cny
-  #price_group_fixed: 1 # aggregate price levels in orderbook
-  bid: {fee: 0, currency: cny, fixed: 2}
-  ask: {fee: 0.1, currency: kg, fixed: 4}
-  sort_order: 1
-  mini_board_lot: 100 #最小手数
-  #visible: false     # default to true
+#- id: puercny
+#  code: 1
+#  name: 普洱茶      # default name
+#  base_unit: kg
+#  quote_unit: cny
+#  #price_group_fixed: 1 # aggregate price levels in orderbook
+#  bid: {fee: 0, currency: cny, fixed: 2}
+#  ask: {fee: 0.1, currency: kg, fixed: 4}
+#  sort_order: 1
+#  mini_board_lot: 100 #最小手数
+#  #visible: false     # default to true
 - id: btccny
   code: 3
   name: 比特币      # default name
@@ -19,14 +19,14 @@
   ask: {fee: 0.1, currency: btc, fixed: 4}
   sort_order: 2
   #visible: false     # default to true
-- id: tong
-  code: 2
-  name: 铜      # default name
-  base_unit: tong
-  quote_unit: cny
-  #price_group_fixed: 1 # aggregate price levels in orderbook
-  bid: {fee: 0, currency: cny, fixed: 2}
-  ask: {fee: 0, currency: btc, fixed: 4}
-  sort_order: 1
-  mini_board_lot: 100 #最小手数
-  #visible: false     # default to true
+#- id: tong
+#  code: 2
+#  name: 铜      # default name
+#  base_unit: tong
+#  quote_unit: cny
+#  #price_group_fixed: 1 # aggregate price levels in orderbook
+#  bid: {fee: 0, currency: cny, fixed: 2}
+#  ask: {fee: 0, currency: btc, fixed: 4}
+#  sort_order: 1
+#  mini_board_lot: 100 #最小手数
+#  #visible: false     # default to true
