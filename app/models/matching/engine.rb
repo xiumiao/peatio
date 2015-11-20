@@ -84,7 +84,7 @@ module Matching
       return unless counter_order
 
       if trade = order.trade_with(counter_order, counter_book)
-        # fill_top 交易如果该交易全部结束，直接删除，
+        # fill_top 交易如果该交易全部结束(即买卖数量全部成交)，则从orderbook中直接移除，
         # 如果是部分交易会发送广播:slave_book action:update
         counter_book.fill_top *trade
         order.fill *trade
