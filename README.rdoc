@@ -347,3 +347,5 @@ ipo_numbers
 1）获取需要购买商品的当前市价
 2）买入和卖出随机数量（价格上下浮动10%）
 3.
+和pusher.com类似的开源软件
+https://www.quora.com/Are-there-any-open-source-alternatives-to-Pusher
