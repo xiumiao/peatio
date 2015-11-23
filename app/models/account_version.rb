@@ -29,7 +29,9 @@ class AccountVersion < ActiveRecord::Base
   belongs_to :modifiable, polymorphic: true
 
   scope :history, -> { with_reason(*HISTORY).reverse_order }
-
+  scope :transaction_fees, ->{
+    where(['account_versions.reason=100'])
+  }
   # Use account balance and locked columes as optimistic lock column. If the
   # passed in balance and locked doesn't match associated account's data in
   # database, exception raise. Otherwise the AccountVersion record will be

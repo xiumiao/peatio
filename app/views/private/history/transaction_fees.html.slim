@@ -1,0 +1,22 @@
+- content_for :frame do
+  .container.history-pages
+    = render 'tabs', active: :transaction_fee
+
+    .panel.panel-default#transaction_fees
+      .panel-body
+        .col-xs-24
+          table.table.table-condensed.table-striped
+            thead: tr
+              th = t('.id')
+              th = t('.type')
+              th = t('.state')
+              th = t('.market')
+              th = t('.price')
+              th = t('.volume')
+              th = t('.average_price')
+              th = t('.fullfilled_volume')
+              th = t('.timestamp')
+            tbody.list
+              = render partial: 'transaction_fee', collection: @transaction_fees
+          .pull-right
+            = paginate @transaction_fees

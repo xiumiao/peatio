@@ -19,6 +19,11 @@ module Private
         .order('id desc').page(params[:page]).per(20)
     end
 
+    def transaction_fees
+      # REASON_CODES[Account::STRIKE_FEE]
+      @transaction_fees = current_user.versions.transaction_fees.order('id desc').page(params[:page]).per(20)
+    end
+
     def orders
       @orders = current_user.orders.includes(:trades).order("id desc").page(params[:page]).per(20)
     end

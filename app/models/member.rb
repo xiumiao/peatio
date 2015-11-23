@@ -5,6 +5,7 @@ class Member < ActiveRecord::Base
 
   has_many :orders
   has_many :accounts
+  has_many :versions, through: :accounts
   has_many :payment_addresses, through: :accounts
   has_many :withdraws
   has_many :fund_sources
@@ -33,6 +34,7 @@ class Member < ActiveRecord::Base
     joins(:id_document).
     where(['id_documents.oraganization = ?', id])
   }
+
 
   delegate :activated?, to: :two_factors, prefix: true, allow_nil: true
   delegate :name,       to: :id_document, allow_nil: true
