@@ -349,3 +349,21 @@ ipo_numbers
 3.
 和pusher.com类似的开源软件
 https://www.quora.com/Are-there-any-open-source-alternatives-to-Pusher
+激活邮箱
+UPDATE members` SET `activated` = 1 WHERE members.id = 9
+实名认证
+UPDATE `id_documents` SET `aasm_state` = 'verified', `updated_at` = '2015-11-23 10:52:43' WHERE `id_documents`.`id` = 9
+手机认证
+UPDATE `members` SET `phone_number` = '86111111', `updated_at` = '2015-11-23 11:55:22' WHERE `members`.`id` = 9
+UPDATE `two_factors` SET `activated` = 1, `last_verify_at` = '2015-11-23 11:55:25' WHERE `two_factors`.`type` IN ('TwoFactor::Sms') AND `two_factors`.`id` = 17
+
+192.168.150.92
+添加两个会员单位
+company1@company.com
+company2@company.com
+属于会员单位的交易商
+member1@jiaoyishang.com
+member2@jiaoyishang.com
+member3@jiaoyishang.com
+member4@jiaoyishang.com
+
