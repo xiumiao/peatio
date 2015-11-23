@@ -68,6 +68,9 @@ module Admin
           amount = ipo.amount
           @cny_account = ipo.member.cny
           @cny_account.ipo_unlock_funds(@ipo_applicant.issue_price*(amount-value),  reason: Account::IPO_UNLOCK, ref: ipo) unless amount == value
+          # 没有处理将IPO之后对应的数量添加到对应的账户
+          # 因为目前所有的商品是通过配置文件来管理的，所以。。。
+          # 后续需要将产品管理放到数据库中
         end
 
         @ipo_applicant.check!
