@@ -7,15 +7,11 @@
         .col-xs-24
           table.table.table-condensed.table-striped
             thead: tr
-              th = t('.id')
-              th = t('.type')
-              th = t('.state')
-              th = t('.market')
-              th = t('.price')
-              th = t('.volume')
-              th = t('.average_price')
-              th = t('.fullfilled_volume')
-              th = t('.timestamp')
+              th = t('private.history.transaction_fee.id')
+              th.text-right = t('private.history.transaction_fee.fee')
+              th = t('private.history.transaction_fee.from')
+              th.text-right = t('private.history.transaction_fee.amount')
+              th = t('private.history.transaction_fee.created_at')
             tbody.list
               = render partial: 'transaction_fee', collection: @transaction_fees
           .pull-right

@@ -525,6 +525,14 @@ zh-CN:
       transaction:
         Deposit: 充值
         Withdraw: 提现
+      transaction_fee:
+        id: 序号
+        transaction_fee_histroy: 手续费明细
+        balance: 余额
+        amount: 账户余额
+        fee: 手续费
+        created_at: 成交时间
+        from: 手续费来源
       account:
         buy: 买入
         sell: 卖出
@@ -557,7 +565,7 @@ zh-CN:
         trade_history: 成交记录
         side: 类型
         created_at: 时间
-        base_currency: 基准货币
+        base_currency: 商品名称
         base_amount: 数量
         quote_currency: 报价货币
         quote_amount: 数量
@@ -1538,6 +1546,7 @@ zh-CN:
     order_history: 委托记录
     trade_history: 成交记录
     account_history: 账户记录
+    transaction_fee_histroy: 手续费明细
     my_profile: 用户设置
     tickets: 服务单
     account_balance: 账户资产

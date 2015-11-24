@@ -33,7 +33,9 @@ module Private
     def tabs
       { order: ['header.order_history', order_history_path],
         trade: ['header.trade_history', trade_history_path],
-        account: ['header.account_history', account_history_path] }
+        account: ['header.account_history', account_history_path],
+        transaction_fee: ['header.transaction_fee_histroy',transaction_fee_history_path]
+      }
     end
 
   end
