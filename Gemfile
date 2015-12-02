@@ -57,7 +57,7 @@ gem 'country_select', '~> 2.1.0'
 # 简单来讲就是把服务器端的变量在浏览器端可用
 gem 'gon', '~> 5.2.0'
 #  http://pusher.com 封装消息
-gem 'pusher'
+gem 'pusher', '~> 0.15.1'
 gem 'eventmachine', '~> 1.0.4'
 gem 'em-websocket', '~> 0.5.1'
 
@@ -113,8 +113,8 @@ group :development, :test do
   gem 'meta_request'
   gem 'better_errors'
   gem 'binding_of_caller'
-  # gem 'pry-remote'
-  # gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'pry-rails'
   gem 'quiet_assets'
   gem 'mails_viewer'
   gem 'timecop'

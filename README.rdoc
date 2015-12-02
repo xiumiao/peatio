@@ -367,3 +367,20 @@ member2@jiaoyishang.com
 member3@jiaoyishang.com
 member4@jiaoyishang.com
 
+使用slanger替换Pusher.com
+https://github.com/peatio/peatio-slanger
+
+api使用PUSHER_PORT, 客户端使用PUSHER_WS_PORT
+
+直接访问IP，比访问域名速度在刚开始会快一点？
+
+ubuntu中怎么才是正确添加service的方式？
+slanger官方介绍的方式是添加到/etc/init目录
+通过service --status-all是列不出来的，
+需要通过initctl list
+新添加之后需要通过
+initctl reload-configuration
+来重新加载配置文件
+启动新加载的serice
+initctl start slanger
+参考：http://askubuntu.com/questions/299371/correct-way-to-install-a-custom-upstart-service
